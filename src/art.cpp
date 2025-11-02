@@ -1,0 +1,64 @@
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+// Coordinates use y-up geometry. Every output pixel occupies two columns.
+static const std::vector<std::string> names = {"square"};
+
+bool mask(const std::string& shape, double x, double y) {
+    double ax = std::abs(x), ay = std::abs(y);
+    if (shape == "square") return ax <= .8 && ay <= .8;
+    return false;
+}
+
+std::vector<std::string> raster(const std::string& shape, int size, bool outline) {
+    (void)outline;
+    std::vector<std::vector<bool>> pixels(size, std::vector<bool>(size));
+    for (int row = 0; row < size; ++row)
+        for (int col = 0; col < size; ++col)
+            pixels[row][col] = mask(shape, 2.0 * col / (size - 1) - 1,
+                                    1 - 2.0 * row / (size - 1));
+    std::vector<std::string> lines(size);
+    for (int row = 0; row < size; ++row) {
+        for (int col = 0; col < size; ++col) {
+            bool on = pixels[row][col];
+            lines[row] += on ? "**" : "  ";
+        }
+    }
+    return lines;
+}
+
+int integer(const std::string& text) { return std::stoi(text); }
+
+int main(int argc, char** argv) {
+    try {
+        int rows=1, cols=1, size=21;
+        std::string sequence="square", style="filled";
+        for (int i=1;i<argc;++i) {
+            std::string arg=argv[i];
+            if(i+1>=argc) throw std::runtime_error("An option needs a value");
+            std::string value=argv[++i];
+            if(arg=="--sequence") sequence=value;
+            else throw std::runtime_error("Unknown option: "+arg);
+        }
+        std::vector<std::string> shapes(rows*cols,sequence);
+        std::vector<std::vector<std::string>> cells;
+        for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
+        for(int row=0;row<rows;++row) {
+            for(int pixel=0;pixel<size;++pixel) {
+                for(int col=0;col<cols;++col) {
+                    if(col) std::cout<<"    ";
+                    std::cout<<cells[row*cols+col][pixel];
+                }
+                std::cout<<'\n';
+            }
+        }
+    } catch(const std::exception& error) {
+        std::cerr<<"art: "<<error.what()<<'\n';
+        return 2;
+    }
+}
