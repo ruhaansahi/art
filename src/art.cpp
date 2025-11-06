@@ -7,11 +7,12 @@
 #include <vector>
 
 // Coordinates use y-up geometry. Every output pixel occupies two columns.
-static const std::vector<std::string> names = {"square"};
+static const std::vector<std::string> names = {"square", "rectangle"};
 
 bool mask(const std::string& shape, double x, double y) {
     double ax = std::abs(x), ay = std::abs(y);
     if (shape == "square") return ax <= .8 && ay <= .8;
+    if (shape == "rectangle") return ax <= .95 && ay <= .55;
     return false;
 }
 
