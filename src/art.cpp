@@ -7,7 +7,7 @@
 #include <vector>
 
 // Coordinates use y-up geometry. Every output pixel occupies two columns.
-static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle"};
+static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart"};
 
 bool mask(const std::string& shape, double x, double y) {
     double ax = std::abs(x), ay = std::abs(y);
@@ -17,6 +17,11 @@ bool mask(const std::string& shape, double x, double y) {
     if (shape == "triangle") return y >= -.85 && y <= .9 && ax <= (.9 - y) * .54;
     if (shape == "diamond") return ax + ay <= .95;
     if (shape == "circle") return x * x + y * y <= .81;
+    if (shape == "heart") {
+        double hx = x * 1.25, hy = y * 1.25 + .15;
+        double a = hx * hx + hy * hy - 1;
+        return a * a * a - hx * hx * hy * hy * hy <= 0;
+    }
     return false;
 }
 
@@ -42,7 +47,7 @@ int integer(const std::string& text) { return std::stoi(text); }
 int main(int argc, char** argv) {
     try {
         int rows=1, cols=1, size=21;
-        std::string sequence="square", style="filled";
+        std::string sequence="heart", style="filled";
         for (int i=1;i<argc;++i) {
             std::string arg=argv[i];
             if(i+1>=argc) throw std::runtime_error("An option needs a value");
