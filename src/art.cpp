@@ -7,7 +7,25 @@
 #include <vector>
 
 // Coordinates use y-up geometry. Every output pixel occupies two columns.
-static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart"};
+static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart", "star"};
+
+bool star(double x, double y) {
+    constexpr double pi = 3.14159265358979323846;
+    std::vector<std::pair<double, double>> points;
+    for (int i = 0; i < 10; ++i) {
+        double angle = pi / 2 + i * pi / 5;
+        double radius = i % 2 == 0 ? 0.98 : 0.43;
+        points.emplace_back(radius * std::cos(angle), radius * std::sin(angle));
+    }
+    bool inside = false;
+    for (int i = 0, j = 9; i < 10; j = i++) {
+        auto [xi, yi] = points[i];
+        auto [xj, yj] = points[j];
+        if ((yi > y) != (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+            inside = !inside;
+    }
+    return inside;
+}
 
 bool mask(const std::string& shape, double x, double y) {
     double ax = std::abs(x), ay = std::abs(y);
@@ -22,6 +40,7 @@ bool mask(const std::string& shape, double x, double y) {
         double a = hx * hx + hy * hy - 1;
         return a * a * a - hx * hx * hy * hy * hy <= 0;
     }
+    if (shape == "star") return star(x, y);
     return false;
 }
 
