@@ -7,7 +7,7 @@
 #include <vector>
 
 // Coordinates use y-up geometry. Every output pixel occupies two columns.
-static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart", "star", "arrow", "cross", "hourglass"};
+static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart", "star", "arrow", "cross", "hourglass", "hexagon"};
 
 bool star(double x, double y) {
     constexpr double pi = 3.14159265358979323846;
@@ -46,6 +46,7 @@ bool mask(const std::string& shape, double x, double y) {
                (y >= -.05 && y <= .95 && ax <= (.95 - y) * .95);
     if (shape == "cross") return (ax <= .27 && ay <= .9) || (ax <= .9 && ay <= .27);
     if (shape == "hourglass") return ay <= .9 && ax <= std::max(.06, ay);
+    if (shape == "hexagon") return ay <= .8 && ax <= .95 - .5 * ay;
     return false;
 }
 
