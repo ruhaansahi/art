@@ -51,7 +51,6 @@ bool mask(const std::string& shape, double x, double y) {
 }
 
 std::vector<std::string> raster(const std::string& shape, int size, bool outline) {
-    (void)outline;
     std::vector<std::vector<bool>> pixels(size, std::vector<bool>(size));
     for (int row = 0; row < size; ++row)
         for (int col = 0; col < size; ++col)
@@ -61,6 +60,9 @@ std::vector<std::string> raster(const std::string& shape, int size, bool outline
     for (int row = 0; row < size; ++row) {
         for (int col = 0; col < size; ++col) {
             bool on = pixels[row][col];
+            if (on && outline && row > 0 && row + 1 < size && col > 0 && col + 1 < size)
+                on = !(pixels[row - 1][col] && pixels[row + 1][col] &&
+                       pixels[row][col - 1] && pixels[row][col + 1]);
             lines[row] += on ? "**" : "  ";
         }
     }
@@ -75,6 +77,7 @@ int main(int argc, char** argv) {
         std::string sequence="heart", style="filled";
         for (int i=1;i<argc;++i) {
             std::string arg=argv[i];
+            if(arg=="--outline") {style="outline";continue;}
             if(i+1>=argc) throw std::runtime_error("An option needs a value");
             std::string value=argv[++i];
             if(arg=="--sequence") sequence=value;
