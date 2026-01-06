@@ -82,6 +82,7 @@ int main(int argc, char** argv) {
             std::string value=argv[++i];
             if(arg=="--sequence") sequence=value;
             else if(arg=="--size") size=integer(value);
+            else if(arg=="--rows") rows=integer(value);
             else throw std::runtime_error("Unknown option: "+arg);
         }
         std::vector<std::string> shapes(rows*cols,sequence);
