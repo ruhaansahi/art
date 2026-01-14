@@ -86,7 +86,11 @@ int main(int argc, char** argv) {
             else if(arg=="--cols") cols=integer(value);
             else throw std::runtime_error("Unknown option: "+arg);
         }
-        std::vector<std::string> shapes(rows*cols,sequence);
+        std::vector<std::string> shapes;
+        std::stringstream input(sequence);
+        std::string shape;
+        while(std::getline(input,shape,',')) shapes.push_back(shape);
+        shapes.resize(rows*cols,shapes.front());
         std::vector<std::vector<std::string>> cells;
         for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
         for(int row=0;row<rows;++row) {
