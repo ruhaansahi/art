@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
         std::stringstream input(sequence);
         std::string shape;
         while(std::getline(input,shape,',')) shapes.push_back(shape);
-        shapes.resize(rows*cols,shapes.front());
+        shapes.resize(rows*cols,"_");
         std::vector<std::vector<std::string>> cells;
         for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
         for(int row=0;row<rows;++row) {
