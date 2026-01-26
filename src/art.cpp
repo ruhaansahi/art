@@ -101,6 +101,7 @@ int main(int argc, char** argv) {
                 }
                 std::cout<<'\n';
             }
+            if(row+1<rows) std::cout<<'\n';
         }
     } catch(const std::exception& error) {
         std::cerr<<"art: "<<error.what()<<'\n';
