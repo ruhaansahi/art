@@ -77,6 +77,7 @@ int main(int argc, char** argv) {
         std::string sequence="heart", style="filled";
         for (int i=1;i<argc;++i) {
             std::string arg=argv[i];
+            if(arg=="--list") {for(const auto& name:names) std::cout<<name<<'\n';return 0;}
             if(arg=="--outline") {style="outline";continue;}
             if(i+1>=argc) throw std::runtime_error("An option needs a value");
             std::string value=argv[++i];
