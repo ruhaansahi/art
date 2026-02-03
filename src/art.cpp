@@ -78,6 +78,7 @@ int main(int argc, char** argv) {
         for (int i=1;i<argc;++i) {
             std::string arg=argv[i];
             if(arg=="--list") {for(const auto& name:names) std::cout<<name<<'\n';return 0;}
+            if(arg=="--help") {std::cout<<"art --sequence SHAPES --rows N --cols N --size N --style filled|outline\n";return 0;}
             if(arg=="--outline") {style="outline";continue;}
             if(i+1>=argc) throw std::runtime_error("An option needs a value");
             std::string value=argv[++i];
