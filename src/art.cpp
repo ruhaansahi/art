@@ -69,7 +69,12 @@ std::vector<std::string> raster(const std::string& shape, int size, bool outline
     return lines;
 }
 
-int integer(const std::string& text) { return std::stoi(text); }
+int integer(const std::string& text) {
+    std::size_t end = 0;
+    int value = std::stoi(text, &end);
+    if (end != text.size()) throw std::runtime_error("Expected an integer: " + text);
+    return value;
+}
 
 int main(int argc, char** argv) {
     try {
