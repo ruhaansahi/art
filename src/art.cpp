@@ -97,6 +97,7 @@ int main(int argc, char** argv) {
         std::stringstream input(sequence);
         std::string shape;
         while(std::getline(input,shape,',')) shapes.push_back(shape);
+        for(const auto& shape:shapes) if(shape!="_" && std::find(names.begin(),names.end(),shape)==names.end()) throw std::runtime_error("Unknown shape: "+shape);
         shapes.resize(rows*cols,"_");
         std::vector<std::vector<std::string>> cells;
         for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
