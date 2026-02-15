@@ -98,6 +98,7 @@ int main(int argc, char** argv) {
         std::string shape;
         while(std::getline(input,shape,',')) shapes.push_back(shape);
         for(const auto& shape:shapes) if(shape!="_" && std::find(names.begin(),names.end(),shape)==names.end()) throw std::runtime_error("Unknown shape: "+shape);
+        if(shapes.size()>static_cast<std::size_t>(rows*cols)) throw std::runtime_error("More shapes than grid cells");
         shapes.resize(rows*cols,"_");
         std::vector<std::vector<std::string>> cells;
         for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
