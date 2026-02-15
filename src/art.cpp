@@ -93,6 +93,7 @@ int main(int argc, char** argv) {
             else if(arg=="--style") style=value;
             else throw std::runtime_error("Unknown option: "+arg);
         }
+        if(rows<1||cols<1||rows>20||cols>20||rows*cols>100) throw std::runtime_error("Grid must have 1..20 rows/columns and at most 100 cells");
         std::vector<std::string> shapes;
         std::stringstream input(sequence);
         std::string shape;
