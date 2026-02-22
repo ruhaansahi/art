@@ -78,44 +78,59 @@ int integer(const std::string& text) {
 
 int main(int argc, char** argv) {
     try {
-        int rows=1, cols=1, size=21;
-        std::string sequence="heart", style="filled";
-        for (int i=1;i<argc;++i) {
-            std::string arg=argv[i];
-            if(arg=="--list") {for(const auto& name:names) std::cout<<name<<'\n';return 0;}
-            if(arg=="--help") {std::cout<<"art --sequence SHAPES --rows N --cols N --size N --style filled|outline\n";return 0;}
-            if(i+1>=argc) throw std::runtime_error("An option needs a value");
-            std::string value=argv[++i];
-            if(arg=="--sequence") sequence=value;
-            else if(arg=="--size") size=integer(value);
-            else if(arg=="--rows") rows=integer(value);
-            else if(arg=="--cols") cols=integer(value);
-            else if(arg=="--style") style=value;
-            else throw std::runtime_error("Unknown option: "+arg);
+        int rows = 1, cols = 1, size = 21;
+        std::string sequence = "heart", style = "filled";
+        for (int i = 1; i < argc; ++i) {
+            std::string arg = argv[i];
+            if (arg == "--list") {
+                for (const auto& name : names) std::cout << name << '\n';
+                return 0;
+            }
+            if (arg == "--help") {
+                std::cout << "art --rows N --cols N --size 5..81 --style filled|outline "
+                             "--sequence heart,star,circle\n";
+                return 0;
+            }
+            if (i + 1 >= argc) throw std::runtime_error("Missing value for " + arg);
+            std::string value = argv[++i];
+            if (arg == "--rows") rows = integer(value);
+            else if (arg == "--cols") cols = integer(value);
+            else if (arg == "--size") size = integer(value);
+            else if (arg == "--style") style = value;
+            else if (arg == "--sequence") sequence = value;
+            else throw std::runtime_error("Unknown option: " + arg);
         }
-        if(rows<1||cols<1||rows>20||cols>20||rows*cols>100) throw std::runtime_error("Grid must have 1..20 rows/columns and at most 100 cells");
-        if(size<5||size>81) throw std::runtime_error("Size must be 5..81");
+        if (rows < 1 || cols < 1 || rows > 20 || cols > 20 || rows * cols > 100)
+            throw std::runtime_error("Grid must have 1..20 rows/columns and at most 100 cells");
+        if (size < 5 || size > 81) throw std::runtime_error("Size must be 5..81");
+        if (style != "filled" && style != "outline") throw std::runtime_error("Invalid style");
         std::vector<std::string> shapes;
         std::stringstream input(sequence);
         std::string shape;
-        while(std::getline(input,shape,',')) shapes.push_back(shape);
-        for(const auto& shape:shapes) if(shape!="_" && std::find(names.begin(),names.end(),shape)==names.end()) throw std::runtime_error("Unknown shape: "+shape);
-        if(shapes.size()>static_cast<std::size_t>(rows*cols)) throw std::runtime_error("More shapes than grid cells");
-        shapes.resize(rows*cols,"_");
-        std::vector<std::vector<std::string>> cells;
-        for(const auto& shape:shapes) cells.push_back(raster(shape,size,style=="outline"));
-        for(int row=0;row<rows;++row) {
-            for(int pixel=0;pixel<size;++pixel) {
-                for(int col=0;col<cols;++col) {
-                    if(col) std::cout<<"    ";
-                    std::cout<<cells[row*cols+col][pixel];
-                }
-                std::cout<<'\n';
-            }
-            if(row+1<rows) std::cout<<'\n';
+        while (std::getline(input, shape, ',')) {
+            if (shape != "_" && std::find(names.begin(), names.end(), shape) == names.end())
+                throw std::runtime_error("Unknown shape: " + shape);
+            shapes.push_back(shape);
         }
-    } catch(const std::exception& error) {
-        std::cerr<<"art: "<<error.what()<<'\n';
+        if (shapes.empty() || sequence.back() == ',') throw std::runtime_error("Empty shape selection");
+        if (shapes.size() > static_cast<std::size_t>(rows * cols))
+            throw std::runtime_error("More shapes than grid cells");
+        shapes.resize(rows * cols, "_");
+        std::vector<std::vector<std::string>> cells;
+        for (const auto& item : shapes) cells.push_back(raster(item, size, style == "outline"));
+        for (int row = 0; row < rows; ++row) {
+            for (int pixel = 0; pixel < size; ++pixel) {
+                std::string line;
+                for (int col = 0; col < cols; ++col) {
+                    if (col) line += "    ";
+                    line += cells[row * cols + col][pixel];
+                }
+                std::cout << line << '\n';
+            }
+            if (row + 1 < rows) std::cout << '\n';
+        }
+    } catch (const std::exception& error) {
+        std::cerr << "art: " << error.what() << '\n';
         return 2;
     }
 }
