@@ -94,6 +94,7 @@ int main(int argc, char** argv) {
             else throw std::runtime_error("Unknown option: "+arg);
         }
         if(rows<1||cols<1||rows>20||cols>20||rows*cols>100) throw std::runtime_error("Grid must have 1..20 rows/columns and at most 100 cells");
+        if(size<5||size>81) throw std::runtime_error("Size must be 5..81");
         std::vector<std::string> shapes;
         std::stringstream input(sequence);
         std::string shape;
