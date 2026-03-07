@@ -32,11 +32,67 @@ def build(root=ROOT):
     return binary
 
 
+def validate(recipe):
+    if not isinstance(recipe, dict):
+        raise ValueError("Recipe must be a JSON object")
+    return recipe
+
+
+def render(recipe, binary=None):
+    validate(recipe)
+    binary = binary or build()
+    arguments = [str(binary), "--rows", str(recipe["rows"]), "--cols", str(recipe["cols"]),
+                     "--size", str(recipe["size"]), "--style", recipe["style"],
+                     "--sequence", ",".join(recipe["sequence"])]
+    return subprocess.run(arguments, check=True, capture_output=True, text=True).stdout
+
+
 def main():
-    parser = argparse.ArgumentParser(description="Build the terminal renderer")
-    parser.add_argument("command", choices=("build",))
-    parser.parse_args()
-    print(build())
+    parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
+    commands = parser.add_subparsers(dest="command")
+    commands.add_parser("build")
+    for command in ("render",):
+        drawing = commands.add_parser(command)
+        sources = drawing.add_mutually_exclusive_group()
+    parser.set_defaults(**{'shapes': None, 'sequence': None, 'recipe': None, 'shape': None, 'grid': '1x1', 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
+    args = parser.parse_args()
+    if args.command == "shapes":
+        print("\n".join(SHAPES))
+    elif args.command == "build":
+        print(build())
+    elif args.command in (None, "interactive"):
+        parser.print_help()
+    else:
+        if args.recipe:
+            recipe = json.loads(args.recipe.read_text(encoding="utf-8"))
+        elif args.shape or args.command == "math":
+            if args.shapes or args.sequence:
+                raise ValueError("Use render for classic shape grids")
+            recipe = math_recipe(args.shape or "moire", args.matrix, args.shading,
+                                 args.resolution, args.transform, args.seed, args.time, args.ramp)
+        else:
+            rows, cols = 1, 1
+            sequence = ["heart"] if not args.sequence else args.sequence.split(",")
+            recipe = dict(rows=rows, cols=cols, size=args.size, style=args.style,
+                          sequence=sequence, seed=args.seed)
+        if args.shuffle:
+            if recipe.get("engine") == "math":
+                raise ValueError("Use --matrix to arrange a mathematical canvas")
+            recipe = dict(recipe, sequence=list(recipe["sequence"]))
+            random.Random(args.seed).shuffle(recipe["sequence"])
+            recipe["seed"] = args.seed
+        frames = []
+        for frame in range(args.frames):
+            current = dict(recipe, time=recipe.get("time", 0) + frame / args.fps) if args.frames > 1 else recipe
+            output = render(current)
+            frames.append(output)
+        result = "\n".join(frames)
+        if args.output:
+            args.output.write_text(result, encoding="utf-8")
+        else:
+            print(result, end="")
+        if args.write_recipe:
+            args.write_recipe.write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
