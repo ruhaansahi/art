@@ -47,6 +47,10 @@ def render(recipe, binary=None):
     return subprocess.run(arguments, check=True, capture_output=True, text=True).stdout
 
 
+def grid(text):
+    return tuple(map(int, text.lower().split("x")))
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
@@ -55,7 +59,8 @@ def main():
     for command in ("render",):
         drawing = commands.add_parser(command)
         sources = drawing.add_mutually_exclusive_group()
-    parser.set_defaults(**{'shapes': None, 'sequence': None, 'recipe': None, 'shape': None, 'grid': '1x1', 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
+        drawing.add_argument("--grid", default="1x1", help="ROWSxCOLS")
+    parser.set_defaults(**{'shapes': None, 'sequence': None, 'recipe': None, 'shape': None, 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
@@ -72,7 +77,7 @@ def main():
             recipe = math_recipe(args.shape or "moire", args.matrix, args.shading,
                                  args.resolution, args.transform, args.seed, args.time, args.ramp)
         else:
-            rows, cols = 1, 1
+            rows, cols = grid(args.grid)
             sequence = ["heart"] if not args.sequence else args.sequence.split(",")
             recipe = dict(rows=rows, cols=cols, size=args.size, style=args.style,
                           sequence=sequence, seed=args.seed)
