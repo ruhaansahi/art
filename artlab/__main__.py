@@ -51,6 +51,17 @@ def grid(text):
     return tuple(map(int, text.lower().split("x")))
 
 
+def selection(text):
+    sequence = []
+    for part in text.split(","):
+        name, separator, quantity = part.strip().partition(":")
+        if name not in SHAPES:
+            raise ValueError(f"Unknown shape: {name}")
+        count = int(quantity) if separator else 1
+        sequence.extend([name] * count)
+    return sequence
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
@@ -59,8 +70,9 @@ def main():
     for command in ("render",):
         drawing = commands.add_parser(command)
         sources = drawing.add_mutually_exclusive_group()
-        drawing.add_argument("--grid", default="1x1", help="ROWSxCOLS")
-    parser.set_defaults(**{'shapes': None, 'sequence': None, 'recipe': None, 'shape': None, 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
+        sources.add_argument("--shapes", help="heart:4,star:6,circle:10; expanded in listed order")
+        drawing.add_argument("--grid", default="4x5", help="ROWSxCOLS")
+    parser.set_defaults(**{'sequence': None, 'recipe': None, 'shape': None, 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
@@ -78,7 +90,7 @@ def main():
                                  args.resolution, args.transform, args.seed, args.time, args.ramp)
         else:
             rows, cols = grid(args.grid)
-            sequence = ["heart"] if not args.sequence else args.sequence.split(",")
+            sequence = selection(args.shapes or "heart,star,circle,diamond") if not args.sequence else args.sequence.split(",")
             recipe = dict(rows=rows, cols=cols, size=args.size, style=args.style,
                           sequence=sequence, seed=args.seed)
         if args.shuffle:
