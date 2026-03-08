@@ -50,6 +50,7 @@ def render(recipe, binary=None):
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
+    commands.add_parser("shapes")
     commands.add_parser("build")
     for command in ("render",):
         drawing = commands.add_parser(command)
