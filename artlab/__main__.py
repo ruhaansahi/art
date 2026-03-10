@@ -73,7 +73,8 @@ def main():
         sources.add_argument("--shapes", help="heart:4,star:6,circle:10; expanded in listed order")
         sources.add_argument("--sequence", help="Explicit comma-separated cell order")
         drawing.add_argument("--grid", default="4x5", help="ROWSxCOLS")
-    parser.set_defaults(**{'recipe': None, 'shape': None, 'size': 21, 'style': 'filled', 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
+        drawing.add_argument("--style", choices=("filled", "outline"), default="filled")
+    parser.set_defaults(**{'recipe': None, 'shape': None, 'size': 21, 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'output': None, 'write_recipe': None})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
