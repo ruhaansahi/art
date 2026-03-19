@@ -75,8 +75,9 @@ def main():
         drawing.add_argument("--grid", default="4x5", help="ROWSxCOLS")
         drawing.add_argument("--size", type=int, default=21)
         drawing.add_argument("--style", choices=("filled", "outline"), default="filled")
+        drawing.add_argument("--shuffle", action="store_true")
         drawing.add_argument("--output", type=Path)
-    parser.set_defaults(**{'recipe': None, 'shape': None, 'seed': 20261022, 'shuffle': False, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'write_recipe': None})
+    parser.set_defaults(**{'recipe': None, 'shape': None, 'seed': 20261022, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'write_recipe': None})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
