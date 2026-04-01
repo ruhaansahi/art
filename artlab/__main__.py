@@ -78,7 +78,8 @@ def main():
         drawing.add_argument("--seed", type=int, default=20261022)
         drawing.add_argument("--shuffle", action="store_true")
         drawing.add_argument("--output", type=Path)
-    parser.set_defaults(**{'recipe': None, 'shape': None, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12, 'write_recipe': None})
+        drawing.add_argument("--write-recipe", type=Path)
+    parser.set_defaults(**{'recipe': None, 'shape': None, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
