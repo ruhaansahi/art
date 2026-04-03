@@ -72,6 +72,7 @@ def main():
         sources = drawing.add_mutually_exclusive_group()
         sources.add_argument("--shapes", help="heart:4,star:6,circle:10; expanded in listed order")
         sources.add_argument("--sequence", help="Explicit comma-separated cell order")
+        sources.add_argument("--recipe", type=Path)
         drawing.add_argument("--grid", default="4x5", help="ROWSxCOLS")
         drawing.add_argument("--size", type=int, default=21)
         drawing.add_argument("--style", choices=("filled", "outline"), default="filled")
@@ -79,7 +80,7 @@ def main():
         drawing.add_argument("--shuffle", action="store_true")
         drawing.add_argument("--output", type=Path)
         drawing.add_argument("--write-recipe", type=Path)
-    parser.set_defaults(**{'recipe': None, 'shape': None, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
+    parser.set_defaults(**{'shape': None, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
     args = parser.parse_args()
     if args.command == "shapes":
         print("\n".join(SHAPES))
