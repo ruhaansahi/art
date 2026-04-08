@@ -35,6 +35,10 @@ def build(root=ROOT):
 def validate(recipe):
     if not isinstance(recipe, dict):
         raise ValueError("Recipe must be a JSON object")
+    for key in ("rows", "cols"):
+        value = recipe.get(key)
+        if type(value) is not int or not 1 <= value <= 20:
+            raise ValueError(f"{key} must be an integer in 1..20")
     return recipe
 
 
