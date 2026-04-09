@@ -39,6 +39,8 @@ def validate(recipe):
         value = recipe.get(key)
         if type(value) is not int or not 1 <= value <= 20:
             raise ValueError(f"{key} must be an integer in 1..20")
+    if recipe["rows"] * recipe["cols"] > 100:
+        raise ValueError("At most 100 cells are supported")
     return recipe
 
 
