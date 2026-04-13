@@ -44,6 +44,8 @@ def validate(recipe):
     sequence = recipe.get("sequence")
     if not isinstance(sequence, list) or not sequence or len(sequence) > recipe["rows"] * recipe["cols"]:
         raise ValueError("Provide 1..grid capacity ordered shapes")
+    if any(item not in (*SHAPES, "_") for item in recipe["sequence"]):
+        raise ValueError("Unknown shape in recipe")
     return recipe
 
 
