@@ -41,6 +41,9 @@ def validate(recipe):
             raise ValueError(f"{key} must be an integer in 1..20")
     if recipe["rows"] * recipe["cols"] > 100:
         raise ValueError("At most 100 cells are supported")
+    sequence = recipe.get("sequence")
+    if not isinstance(sequence, list) or not sequence or len(sequence) > recipe["rows"] * recipe["cols"]:
+        raise ValueError("Provide 1..grid capacity ordered shapes")
     return recipe
 
 
