@@ -46,6 +46,8 @@ def validate(recipe):
         raise ValueError("Provide 1..grid capacity ordered shapes")
     if any(item not in (*SHAPES, "_") for item in recipe["sequence"]):
         raise ValueError("Unknown shape in recipe")
+    if type(recipe.get("size")) is not int or not 5 <= recipe["size"] <= 81:
+        raise ValueError("size must be an integer in 5..81")
     return recipe
 
 
