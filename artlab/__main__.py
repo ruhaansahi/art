@@ -62,7 +62,10 @@ def render(recipe, binary=None):
 
 
 def grid(text):
-    return tuple(map(int, text.lower().split("x")))
+    pieces = text.lower().split("x")
+    if len(pieces) != 2:
+        raise ValueError("Grid must be ROWSxCOLS, for example 4x5")
+    return tuple(map(int, pieces))
 
 
 def selection(text):
