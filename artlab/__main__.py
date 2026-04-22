@@ -35,19 +35,20 @@ def build(root=ROOT):
 def validate(recipe):
     if not isinstance(recipe, dict):
         raise ValueError("Recipe must be a JSON object")
-    for key in ("rows", "cols"):
+    for key, low, high in (("rows", 1, 20), ("cols", 1, 20), ("size", 5, 81)):
         value = recipe.get(key)
-        if type(value) is not int or not 1 <= value <= 20:
-            raise ValueError(f"{key} must be an integer in 1..20")
-    if recipe["rows"] * recipe["cols"] > 100:
+        if type(value) is not int or not low <= value <= high:
+            raise ValueError(f"{key} must be an integer in {low}..{high}")
+    capacity = recipe["rows"] * recipe["cols"]
+    if capacity > 100:
         raise ValueError("At most 100 cells are supported")
     sequence = recipe.get("sequence")
-    if not isinstance(sequence, list) or not sequence or len(sequence) > recipe["rows"] * recipe["cols"]:
+    if not isinstance(sequence, list) or not sequence or len(sequence) > capacity:
         raise ValueError("Provide 1..grid capacity ordered shapes")
-    if any(item not in (*SHAPES, "_") for item in recipe["sequence"]):
+    if any(item not in (*SHAPES, "_") for item in sequence):
         raise ValueError("Unknown shape in recipe")
-    if type(recipe.get("size")) is not int or not 5 <= recipe["size"] <= 81:
-        raise ValueError("size must be an integer in 5..81")
+    if recipe.get("style") not in ("filled", "outline"):
+        raise ValueError("Style must be filled or outline")
     return recipe
 
 
