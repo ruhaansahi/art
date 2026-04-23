@@ -101,43 +101,46 @@ def main():
         drawing.add_argument("--write-recipe", type=Path)
     parser.set_defaults(**{'shape': None, 'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
     args = parser.parse_args()
-    if args.command == "shapes":
-        print("\n".join(SHAPES))
-    elif args.command == "build":
-        print(build())
-    elif args.command in (None, "interactive"):
-        parser.print_help()
-    else:
-        if args.recipe:
-            recipe = json.loads(args.recipe.read_text(encoding="utf-8"))
-        elif args.shape or args.command == "math":
-            if args.shapes or args.sequence:
-                raise ValueError("Use render for classic shape grids")
-            recipe = math_recipe(args.shape or "moire", args.matrix, args.shading,
-                                 args.resolution, args.transform, args.seed, args.time, args.ramp)
+    try:
+        if args.command == "shapes":
+            print("\n".join(SHAPES))
+        elif args.command == "build":
+            print(build())
+        elif args.command in (None, "interactive"):
+            parser.print_help()
         else:
-            rows, cols = grid(args.grid)
-            sequence = selection(args.shapes or "heart,star,circle,diamond") if not args.sequence else args.sequence.split(",")
-            recipe = dict(rows=rows, cols=cols, size=args.size, style=args.style,
-                          sequence=sequence, seed=args.seed)
-        if args.shuffle:
-            if recipe.get("engine") == "math":
-                raise ValueError("Use --matrix to arrange a mathematical canvas")
-            recipe = dict(recipe, sequence=list(recipe["sequence"]))
-            random.Random(args.seed).shuffle(recipe["sequence"])
-            recipe["seed"] = args.seed
-        frames = []
-        for frame in range(args.frames):
-            current = dict(recipe, time=recipe.get("time", 0) + frame / args.fps) if args.frames > 1 else recipe
-            output = render(current)
-            frames.append(output)
-        result = "\n".join(frames)
-        if args.output:
-            args.output.write_text(result, encoding="utf-8")
-        else:
-            print(result, end="")
-        if args.write_recipe:
-            args.write_recipe.write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
+            if args.recipe:
+                recipe = json.loads(args.recipe.read_text(encoding="utf-8"))
+            elif args.shape or args.command == "math":
+                if args.shapes or args.sequence:
+                    raise ValueError("Use render for classic shape grids")
+                recipe = math_recipe(args.shape or "moire", args.matrix, args.shading,
+                                     args.resolution, args.transform, args.seed, args.time, args.ramp)
+            else:
+                rows, cols = grid(args.grid)
+                sequence = selection(args.shapes or "heart,star,circle,diamond") if not args.sequence else args.sequence.split(",")
+                recipe = dict(rows=rows, cols=cols, size=args.size, style=args.style,
+                              sequence=sequence, seed=args.seed)
+            if args.shuffle:
+                if recipe.get("engine") == "math":
+                    raise ValueError("Use --matrix to arrange a mathematical canvas")
+                recipe = dict(recipe, sequence=list(recipe["sequence"]))
+                random.Random(args.seed).shuffle(recipe["sequence"])
+                recipe["seed"] = args.seed
+            frames = []
+            for frame in range(args.frames):
+                current = dict(recipe, time=recipe.get("time", 0) + frame / args.fps) if args.frames > 1 else recipe
+                output = render(current)
+                frames.append(output)
+            result = "\n".join(frames)
+            if args.output:
+                args.output.write_text(result, encoding="utf-8")
+            else:
+                print(result, end="")
+            if args.write_recipe:
+                args.write_recipe.write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
+    except (ValueError, KeyError, OSError, subprocess.CalledProcessError) as error:
+        parser.exit(2, f"artlab: {error}\n")
 
 
 if __name__ == "__main__":
