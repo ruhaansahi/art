@@ -75,6 +75,8 @@ def selection(text):
         if name not in SHAPES:
             raise ValueError(f"Unknown shape: {name}")
         count = int(quantity) if separator else 1
+        if not 1 <= count <= 100:
+            raise ValueError("Each quantity must be 1..100")
         sequence.extend([name] * count)
     return sequence
 
