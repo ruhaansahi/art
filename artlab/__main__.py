@@ -27,8 +27,13 @@ def build(root=ROOT):
     directory.mkdir(exist_ok=True)
     binary = directory / ("art.exe" if os.name == "nt" else "art")
     source = root / "src/art.cpp"
-    subprocess.run([compiler, "-std=c++17", "-O2", "-Wall", "-Wextra", "-pedantic",
+    dependencies = source.read_bytes() + b"".join(path.read_bytes() for path in sorted((root / "src").glob("*.hpp")))
+    signature = hashlib.sha256(dependencies + compiler.encode()).hexdigest()
+    stamp = directory / "source.sha256"
+    if not binary.exists() or not stamp.exists() or stamp.read_text() != signature:
+        subprocess.run([compiler, "-std=c++17", "-O2", "-Wall", "-Wextra", "-pedantic",
                         str(source), "-o", str(binary)], check=True)
+        stamp.write_text(signature)
     return binary
 
 
