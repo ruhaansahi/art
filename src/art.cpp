@@ -76,8 +76,12 @@ int integer(const std::string& text) {
     return value;
 }
 
+#include "math.hpp"
+
 int main(int argc, char** argv) {
     try {
+        for (int i = 1; i < argc; ++i)
+            if (std::string(argv[i]) == "--shape") return mathart::run(argc, argv);
         int rows = 1, cols = 1, size = 21;
         std::string sequence = "heart", style = "filled";
         for (int i = 1; i < argc; ++i) {
