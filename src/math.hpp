@@ -7,6 +7,8 @@ constexpr double pi = 3.14159265358979323846;
 double clamp(double v, double low = 0, double high = 1) { return std::max(low, std::min(high, v)); }
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
+double wrap(double v) { return v-2*std::floor((v+1)/2); }
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
