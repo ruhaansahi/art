@@ -11,6 +11,12 @@ double wrap(double v) { return v-2*std::floor((v+1)/2); }
 
 double fade(double t) { return t*t*t*(t*(t*6-15)+10); }
 
+std::uint32_t hash(int x, int y, unsigned seed) {
+    auto h = static_cast<std::uint32_t>(x)*374761393u + static_cast<std::uint32_t>(y)*668265263u + seed;
+    h = (h^(h>>13))*1274126177u;
+    return h^(h>>16);
+}
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
