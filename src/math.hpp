@@ -9,6 +9,8 @@ double mix(double a, double b, double t) { return a+(b-a)*t; }
 
 double wrap(double v) { return v-2*std::floor((v+1)/2); }
 
+double fade(double t) { return t*t*t*(t*(t*6-15)+10); }
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
