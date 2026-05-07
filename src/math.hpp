@@ -17,6 +17,11 @@ std::uint32_t hash(int x, int y, unsigned seed) {
     return h^(h>>16);
 }
 
+double gradient(int x, int y, double dx, double dy, unsigned seed) {
+    double angle = (hash(x,y,seed)%65536)*2*pi/65536;
+    return std::cos(angle)*dx+std::sin(angle)*dy;
+}
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
