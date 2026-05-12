@@ -22,6 +22,13 @@ double gradient(int x, int y, double dx, double dy, unsigned seed) {
     return std::cos(angle)*dx+std::sin(angle)*dy;
 }
 
+double perlin(double x, double y, unsigned seed) {
+    int ix=static_cast<int>(std::floor(x)), iy=static_cast<int>(std::floor(y));
+    double dx=x-ix, dy=y-iy, u=fade(dx), v=fade(dy);
+    return mix(mix(gradient(ix,iy,dx,dy,seed),gradient(ix+1,iy,dx-1,dy,seed),u),
+               mix(gradient(ix,iy+1,dx,dy-1,seed),gradient(ix+1,iy+1,dx-1,dy-1,seed),u),v);
+}
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
