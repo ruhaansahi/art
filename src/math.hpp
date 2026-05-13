@@ -29,6 +29,12 @@ double perlin(double x, double y, unsigned seed) {
                mix(gradient(ix,iy+1,dx,dy-1,seed),gradient(ix+1,iy+1,dx-1,dy-1,seed),u),v);
 }
 
+double noise(double x, double y, unsigned seed) {
+    double sum=0, amplitude=.55;
+    for (int i=0;i<4;++i) { sum+=amplitude*perlin(x,y,seed+i*31); x*=2; y*=2; amplitude*=.5; }
+    return sum;
+}
+
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
