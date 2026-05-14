@@ -46,6 +46,11 @@ void coordinates(double& x,double& y,const Options& o) {
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="circle") return std::hypot(x,y)<.7?1:0;
+    if(o.shape=="moire") {
+        double a=.14+o.time*.08, rx=x*std::cos(a)-y*std::sin(a),ry=x*std::sin(a)+y*std::cos(a);
+        double grid=std::cos(35*rx)*std::cos(35*ry);
+        return clamp(.5+.5*grid);
+    }
     return 0;
 }
 void draw(const Options& o) {
