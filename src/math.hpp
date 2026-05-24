@@ -52,7 +52,7 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
     if(o.shape=="circle") return std::hypot(x,y)<.7?1:0;
     if(o.shape=="metaball") {
         double distance=10;
-        for(int i=0;i<1;++i) {
+        for(int i=0;i<4;++i) {
             double phase=o.time*.7+i*pi/2;
             double cx=.53*std::cos(phase),cy=.38*std::sin(phase*1.3+i);
             distance=smooth_min(distance,std::hypot(x-cx,y-cy)-.29,.38);
