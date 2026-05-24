@@ -41,6 +41,10 @@ struct Options {
     unsigned seed=20261022;
     double scale=1, rotation=0, skew_x=0, skew_y=0, time=0;
 };
+double smooth_min(double a,double b,double k) {
+    double h=clamp(.5+.5*(b-a)/k);
+    return mix(b,a,h)-k*h*(1-h);
+}
 void coordinates(double& x,double& y,const Options& o) {
     (void)x;(void)y;(void)o;
 }
