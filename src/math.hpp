@@ -48,8 +48,9 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
     if(o.shape=="circle") return std::hypot(x,y)<.7?1:0;
     if(o.shape=="moire") {
         double a=.14+o.time*.08, rx=x*std::cos(a)-y*std::sin(a),ry=x*std::sin(a)+y*std::cos(a);
+        double rings=std::cos(35*std::hypot(x+.13,y-.08)+o.time);
         double grid=std::cos(35*rx)*std::cos(35*ry);
-        return clamp(.5+.5*grid);
+        return clamp(.5+.25*(rings+grid));
     }
     return 0;
 }
