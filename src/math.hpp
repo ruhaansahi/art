@@ -41,6 +41,7 @@ struct Options {
     unsigned seed=20261022;
     double scale=1, rotation=0, skew_x=0, skew_y=0, time=0;
 };
+double number(const std::string& text) {return std::stod(text);}
 double smooth_min(double a,double b,double k) {
     double h=clamp(.5+.5*(b-a)/k);
     return mix(b,a,h)-k*h*(1-h);
@@ -88,6 +89,7 @@ int run(int argc,char** argv) {
         std::string arg=argv[i];
         auto take=[&]() {if(i+1>=argc) throw std::runtime_error("Missing value for "+arg);return std::string(argv[++i]);};
         if(arg=="--shape") o.shape=take();
+        else if(arg=="--time") o.time=number(take());
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     draw(o);
