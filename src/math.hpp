@@ -55,7 +55,7 @@ double fractal(double x,double y,double t,bool julia) {
     for(int i=0;i<100;++i) {
         double next=zr*zr-zi*zi+cr;
         zi=2*zr*zi+ci; zr=next;
-        if(zr*zr+zi*zi>64) return 0;
+        if(zr*zr+zi*zi>64) return std::pow(i/100.0,.5);
     }
     return 1;
 }
