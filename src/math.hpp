@@ -46,10 +46,24 @@ double smooth_min(double a,double b,double k) {
     double h=clamp(.5+.5*(b-a)/k);
     return mix(b,a,h)-k*h*(1-h);
 }
+double fractal(double x,double y,double t,bool julia) {
+    (void)julia;
+    (void)t;
+    double cr=x;
+    double ci=y;
+    double zr=0, zi=0;
+    for(int i=0;i<100;++i) {
+        double next=zr*zr-zi*zi+cr;
+        zi=2*zr*zi+ci; zr=next;
+        if(zr*zr+zi*zi>64) return 0;
+    }
+    return 1;
+}
 void coordinates(double& x,double& y,const Options& o) {
     (void)x;(void)y;(void)o;
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
+    if(o.shape=="fractal") return fractal(x,y,o.time,false);
     if(o.shape=="circle") return std::hypot(x,y)<.7?1:0;
     if(o.shape=="metaball") {
         double distance=10;
