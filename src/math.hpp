@@ -49,8 +49,8 @@ double smooth_min(double a,double b,double k) {
 double fractal(double x,double y,double t,bool julia) {
     (void)julia;
     (void)t;
-    double cr=x;
-    double ci=y;
+    double cr=x*1.4-.45;
+    double ci=y*1.4;
     double zr=0, zi=0;
     for(int i=0;i<100;++i) {
         double next=zr*zr-zi*zi+cr;
