@@ -57,6 +57,16 @@ double fractal(double x,double y,double t,bool julia) {
     }
     return 1;
 }
+std::vector<double> clifford(double t) {
+    std::vector<double> density;
+    double x=.1,y=.1,a=-1.4+.05*std::sin(t),b=1.6,c=1,d=.7;
+    for(int i=0;i<90000;++i) {
+        double nx=std::sin(a*y)+c*std::cos(a*x), ny=std::sin(b*x)+d*std::cos(b*y);
+        x=nx;y=ny;
+        density.push_back(x);density.push_back(y);
+    }
+    return density;
+}
 void coordinates(double& x,double& y,const Options& o) {
     (void)x;(void)y;(void)o;
 }
