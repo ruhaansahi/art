@@ -47,9 +47,8 @@ double smooth_min(double a,double b,double k) {
     return mix(b,a,h)-k*h*(1-h);
 }
 double fractal(double x,double y,double t,bool julia) {
-    (void)t;
-    double cr=julia ? -.74 : x*1.4-.45;
-    double ci=julia ? .21 : y*1.4;
+    double cr=julia ? -.74+.05*std::cos(t*.3) : x*1.4-.45;
+    double ci=julia ? .21+.04*std::sin(t*.3) : y*1.4;
     double zr=julia?x*1.5:0, zi=julia?y*1.5:0;
     for(int i=0;i<100;++i) {
         double next=zr*zr-zi*zi+cr;
