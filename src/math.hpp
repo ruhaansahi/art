@@ -63,6 +63,7 @@ std::vector<double> clifford(double t) {
     for(int i=0;i<90000;++i) {
         double nx=std::sin(a*y)+c*std::cos(a*x), ny=std::sin(b*x)+d*std::cos(b*y);
         x=nx;y=ny;
+        if(i<100) continue;
         density.push_back(x);density.push_back(y);
     }
     return density;
