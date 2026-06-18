@@ -58,13 +58,14 @@ double fractal(double x,double y,double t,bool julia) {
     return 1;
 }
 std::vector<double> clifford(double t) {
-    std::vector<double> density;
+    std::vector<double> density(256*256);
     double x=.1,y=.1,a=-1.4+.05*std::sin(t),b=1.6,c=1,d=.7;
     for(int i=0;i<90000;++i) {
         double nx=std::sin(a*y)+c*std::cos(a*x), ny=std::sin(b*x)+d*std::cos(b*y);
         x=nx;y=ny;
         if(i<100) continue;
-        density.push_back(x);density.push_back(y);
+        int ix=static_cast<int>((x+2)*63.75),iy=static_cast<int>((2-y)*63.75);
+        if(ix>=0&&ix<256&&iy>=0&&iy<256) density[iy*256+ix]+=1;
     }
     return density;
 }
@@ -89,10 +90,15 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
         double grid=std::cos(35*rx)*std::cos(35*ry);
         return clamp(.5+.25*(rings+grid));
     }
+    if(o.shape=="clifford") {
+        int ix=static_cast<int>((x+1)*127.5),iy=static_cast<int>((1-y)*127.5);
+        ix=std::max(0,std::min(255,ix));iy=std::max(0,std::min(255,iy));
+        return density[iy*256+ix];
+    }
     return 0;
 }
 void draw(const Options& o) {
-    std::vector<double> density;
+    auto density=o.shape=="clifford"?clifford(o.time):std::vector<double>{};
     for(int row=0;row<o.height;++row) {
         for(int col=0;col<o.width;++col) {
             double x=(2.0*col/(o.width-1)-1)*(o.width/static_cast<double>(o.height))*.5;
