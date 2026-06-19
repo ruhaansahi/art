@@ -67,6 +67,7 @@ std::vector<double> clifford(double t) {
         int ix=static_cast<int>((x+2)*63.75),iy=static_cast<int>((2-y)*63.75);
         if(ix>=0&&ix<256&&iy>=0&&iy<256) density[iy*256+ix]+=1;
     }
+    for(double& v:density) v=clamp(std::log1p(v)/4);
     return density;
 }
 void coordinates(double& x,double& y,const Options& o) {
