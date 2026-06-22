@@ -94,7 +94,11 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
     if(o.shape=="clifford") {
         int ix=static_cast<int>((x+1)*127.5),iy=static_cast<int>((1-y)*127.5);
         ix=std::max(0,std::min(255,ix));iy=std::max(0,std::min(255,iy));
-        return density[iy*256+ix];
+        double v=0;
+        for(int dy=-1;dy<=1;++dy) for(int dx=-1;dx<=1;++dx)
+            if(ix+dx>=0&&ix+dx<256&&iy+dy>=0&&iy+dy<256)
+                v=std::max(v,density[(iy+dy)*256+ix+dx]);
+        return v;
     }
     return 0;
 }
