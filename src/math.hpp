@@ -75,7 +75,7 @@ void coordinates(double& x,double& y,const Options& o) {
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="fractal"||o.shape=="julia") return fractal(x,y,o.time,o.shape=="julia");
-    if(o.shape=="circle") return std::hypot(x,y)<.7?1:0;
+    if(o.shape=="circle") return clamp((.7-std::hypot(x,y))*5);
     if(o.shape=="star") {
         double r=std::hypot(x,y),a=std::atan2(y,x);
         return clamp((.58+.24*std::cos(5*(a-pi/2))-r)*6);
