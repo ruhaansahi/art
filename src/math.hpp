@@ -87,7 +87,7 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
             double cx=.53*std::cos(phase),cy=.38*std::sin(phase*1.3+i);
             distance=smooth_min(distance,std::hypot(x-cx,y-cy)-.29,.38);
         }
-        return distance<0?1:0;
+        return clamp(.5-distance*4);
     }
     if(o.shape=="moire") {
         double a=.14+o.time*.08, rx=x*std::cos(a)-y*std::sin(a),ry=x*std::sin(a)+y*std::cos(a);
