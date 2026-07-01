@@ -42,6 +42,9 @@ struct Options {
     double scale=1, rotation=0, skew_x=0, skew_y=0, time=0;
 };
 double number(const std::string& text) {return std::stod(text);}
+bool one_of(const std::string& v, const std::vector<std::string>& values) {
+    return std::find(values.begin(),values.end(),v)!=values.end();
+}
 double smooth_min(double a,double b,double k) {
     double h=clamp(.5+.5*(b-a)/k);
     return mix(b,a,h)-k*h*(1-h);
@@ -130,6 +133,7 @@ int run(int argc,char** argv) {
         else if(arg=="--time") o.time=number(take());
         else throw std::runtime_error("Unknown math option: "+arg);
     }
+    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford"})) throw std::runtime_error("Unknown math shape");
     draw(o);
     return 0;
 }
