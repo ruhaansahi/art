@@ -8,6 +8,7 @@ double clamp(double v, double low = 0, double high = 1) { return std::max(low, s
 struct Vec {
     double x,y,z;
     Vec operator+(Vec b) const {return {x+b.x,y+b.y,z+b.z};}
+    Vec operator-(Vec b) const {return {x-b.x,y-b.y,z-b.z};}
 };
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
