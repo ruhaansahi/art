@@ -5,6 +5,10 @@
 namespace mathart {
 constexpr double pi = 3.14159265358979323846;
 double clamp(double v, double low = 0, double high = 1) { return std::max(low, std::min(high, v)); }
+struct Vec {
+    double x,y,z;
+    Vec operator+(Vec b) const {return {x+b.x,y+b.y,z+b.z};}
+};
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
 double wrap(double v) { return v-2*std::floor((v+1)/2); }
