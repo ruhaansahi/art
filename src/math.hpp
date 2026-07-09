@@ -9,6 +9,7 @@ struct Vec {
     double x,y,z;
     Vec operator+(Vec b) const {return {x+b.x,y+b.y,z+b.z};}
     Vec operator-(Vec b) const {return {x-b.x,y-b.y,z-b.z};}
+    Vec operator*(double k) const {return {x*k,y*k,z*k};}
 };
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
