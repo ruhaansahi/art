@@ -11,6 +11,8 @@ struct Vec {
     Vec operator-(Vec b) const {return {x-b.x,y-b.y,z-b.z};}
     Vec operator*(double k) const {return {x*k,y*k,z*k};}
 };
+double dot(Vec a, Vec b) { return a.x*b.x+a.y*b.y+a.z*b.z; }
+
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
 double wrap(double v) { return v-2*std::floor((v+1)/2); }
