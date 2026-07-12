@@ -13,6 +13,8 @@ struct Vec {
 };
 double dot(Vec a, Vec b) { return a.x*b.x+a.y*b.y+a.z*b.z; }
 
+double length(Vec v) { return std::sqrt(dot(v,v)); }
+
 double mix(double a, double b, double t) { return a+(b-a)*t; }
 
 double wrap(double v) { return v-2*std::floor((v+1)/2); }
