@@ -57,6 +57,11 @@ double number(const std::string& text) {return std::stod(text);}
 bool one_of(const std::string& v, const std::vector<std::string>& values) {
     return std::find(values.begin(),values.end(),v)!=values.end();
 }
+double torus(Vec p, double t) {
+    (void)t;
+    double ring=std::hypot(p.x,p.z)-.65;
+    return std::hypot(ring,p.y)-.25;
+}
 double smooth_min(double a,double b,double k) {
     double h=clamp(.5+.5*(b-a)/k);
     return mix(b,a,h)-k*h*(1-h);
