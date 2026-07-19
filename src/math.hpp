@@ -58,7 +58,9 @@ bool one_of(const std::string& v, const std::vector<std::string>& values) {
     return std::find(values.begin(),values.end(),v)!=values.end();
 }
 double torus(Vec p, double t) {
-    (void)t;
+    double a=t*.65+.5, b=t*.37+.25;
+    Vec q={p.x, std::cos(a)*p.y-std::sin(a)*p.z, std::sin(a)*p.y+std::cos(a)*p.z};
+    p={std::cos(b)*q.x-std::sin(b)*q.z,q.y,std::sin(b)*q.x+std::cos(b)*q.z};
     double ring=std::hypot(p.x,p.z)-.65;
     return std::hypot(ring,p.y)-.25;
 }
