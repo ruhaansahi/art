@@ -64,6 +64,19 @@ double torus(Vec p, double t) {
     double ring=std::hypot(p.x,p.z)-.65;
     return std::hypot(ring,p.y)-.25;
 }
+double donut(double x,double y,double t) {
+    Vec origin={0,0,3}, direction=unit({x*.75,y*.75,-2});
+    double travel=0;
+    for(int i=0;i<70 && travel<7;++i) {
+        Vec p=origin+direction*travel;
+        double distance=torus(p,t);
+        if(distance<.04) {
+            return 1;
+        }
+        travel+=.1;
+    }
+    return 0;
+}
 double smooth_min(double a,double b,double k) {
     double h=clamp(.5+.5*(b-a)/k);
     return mix(b,a,h)-k*h*(1-h);
@@ -96,6 +109,7 @@ void coordinates(double& x,double& y,const Options& o) {
     (void)x;(void)y;(void)o;
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
+    if(o.shape=="donut") return donut(x,y,o.time);
     if(o.shape=="fractal"||o.shape=="julia") return fractal(x,y,o.time,o.shape=="julia");
     if(o.shape=="circle") return clamp((.7-std::hypot(x,y))*5);
     if(o.shape=="star") {
@@ -152,7 +166,7 @@ int run(int argc,char** argv) {
         else if(arg=="--time") o.time=number(take());
         else throw std::runtime_error("Unknown math option: "+arg);
     }
-    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford"})) throw std::runtime_error("Unknown math shape");
+    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut"})) throw std::runtime_error("Unknown math shape");
     draw(o);
     return 0;
 }
