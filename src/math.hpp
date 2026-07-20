@@ -67,13 +67,13 @@ double torus(Vec p, double t) {
 double donut(double x,double y,double t) {
     Vec origin={0,0,3}, direction=unit({x*.75,y*.75,-2});
     double travel=0;
-    for(int i=0;i<70 && travel<7;++i) {
+    for(int i=0;i<100 && travel<7;++i) {
         Vec p=origin+direction*travel;
         double distance=torus(p,t);
         if(distance<.04) {
             return 1;
         }
-        travel+=.1;
+        travel+=std::max(.0005,distance);
     }
     return 0;
 }
