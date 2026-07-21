@@ -70,7 +70,7 @@ double donut(double x,double y,double t) {
     for(int i=0;i<100 && travel<7;++i) {
         Vec p=origin+direction*travel;
         double distance=torus(p,t);
-        if(distance<.04) {
+        if(distance<.001) {
             return 1;
         }
         travel+=std::max(.0005,distance);
