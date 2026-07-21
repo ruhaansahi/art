@@ -71,7 +71,11 @@ double donut(double x,double y,double t) {
         Vec p=origin+direction*travel;
         double distance=torus(p,t);
         if(distance<.001) {
-            return 1;
+            constexpr double e=.001;
+            Vec normal=unit({torus(p+Vec{e,0,0},t)-torus(p-Vec{e,0,0},t),
+                             torus(p+Vec{0,e,0},t)-torus(p-Vec{0,e,0},t),
+                             torus(p+Vec{0,0,e},t)-torus(p-Vec{0,0,e},t)});
+            return clamp(.2+.8*std::abs(normal.z));
         }
         travel+=std::max(.0005,distance);
     }
