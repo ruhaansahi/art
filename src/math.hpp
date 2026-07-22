@@ -75,7 +75,9 @@ double donut(double x,double y,double t) {
             Vec normal=unit({torus(p+Vec{e,0,0},t)-torus(p-Vec{e,0,0},t),
                              torus(p+Vec{0,e,0},t)-torus(p-Vec{0,e,0},t),
                              torus(p+Vec{0,0,e},t)-torus(p-Vec{0,0,e},t)});
-            return clamp(.2+.8*std::abs(normal.z));
+            Vec light=unit({-.6,.8,1});
+            double diffuse=std::max(0.0,dot(normal,light));
+            return clamp(.14+.72*diffuse);
         }
         travel+=std::max(.0005,distance);
     }
