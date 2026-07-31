@@ -156,7 +156,7 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
     }
     // Short line-integral convolution following a Perlin direction vector field.
     double total=0;
-    for(int direction : {1}) {
+    for(int direction : {-1,1}) {
         double px=x,py=y;
         for(int step=0;step<12;++step) {
             double angle=noise(px*1.7,py*1.7,o.seed)*2*pi+o.time*.12;
@@ -165,7 +165,7 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
             total+=stripe>.5?1:0;
         }
     }
-    return total/12;
+    return total/24;
 }
 void draw(const Options& o) {
     auto density=o.shape=="clifford"?clifford(o.time):std::vector<double>{};
