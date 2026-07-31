@@ -154,7 +154,18 @@ double field(double x,double y,const Options& o,const std::vector<double>& densi
                 v=std::max(v,density[(iy+dy)*256+ix+dx]);
         return v;
     }
-    return 0;
+    // Short line-integral convolution following a Perlin direction vector field.
+    double total=0;
+    for(int direction : {1}) {
+        double px=x,py=y;
+        for(int step=0;step<12;++step) {
+            double angle=noise(px*1.7,py*1.7,o.seed)*2*pi+o.time*.12;
+            px+=direction*.025*std::cos(angle);py+=direction*.025*std::sin(angle);
+            double stripe=std::sin(38*px+23*py+6*noise(px*2,py*2,o.seed+9)-o.time);
+            total+=stripe>.5?1:0;
+        }
+    }
+    return total/12;
 }
 void draw(const Options& o) {
     auto density=o.shape=="clifford"?clifford(o.time):std::vector<double>{};
@@ -180,7 +191,7 @@ int run(int argc,char** argv) {
         else if(arg=="--time") o.time=number(take());
         else throw std::runtime_error("Unknown math option: "+arg);
     }
-    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut"})) throw std::runtime_error("Unknown math shape");
+    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
     draw(o);
     return 0;
 }
