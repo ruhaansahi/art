@@ -76,9 +76,16 @@ double donut(double x,double y,double t) {
                              torus(p+Vec{0,e,0},t)-torus(p-Vec{0,e,0},t),
                              torus(p+Vec{0,0,e},t)-torus(p-Vec{0,0,e},t)});
             Vec light=unit({-.6,.8,1});
+            double shadow=1, along=.02;
+            for(int j=0;j<32 && along<3;++j) {
+                double d=torus(p+normal*.008+light*along,t);
+                if(d<.001) {shadow=.2;break;}
+                shadow=std::min(shadow,12*d/along);
+                along+=clamp(d,.01,.2);
+            }
             double diffuse=std::max(0.0,dot(normal,light));
             double highlight=std::pow(std::max(0.0,dot(normal,unit(light-direction))),32);
-            return clamp(.14+.72*diffuse+.3*highlight);
+            return clamp(.14+.72*diffuse*clamp(shadow,.2,1)+.3*highlight);
         }
         travel+=std::max(.0005,distance);
     }
