@@ -120,7 +120,7 @@ std::vector<double> clifford(double t) {
     return density;
 }
 void coordinates(double& x,double& y,const Options& o) {
-    (void)x;(void)y;(void)o;
+    x/=o.scale;y/=o.scale;
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
@@ -189,6 +189,7 @@ int run(int argc,char** argv) {
         auto take=[&]() {if(i+1>=argc) throw std::runtime_error("Missing value for "+arg);return std::string(argv[++i]);};
         if(arg=="--shape") o.shape=take();
         else if(arg=="--time") o.time=number(take());
+        else if(arg=="--transform") {o.scale=number(take());o.rotation=number(take());o.skew_x=number(take());o.skew_y=number(take());}
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
