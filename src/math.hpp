@@ -121,6 +121,9 @@ std::vector<double> clifford(double t) {
 }
 void coordinates(double& x,double& y,const Options& o) {
     x/=o.scale;y/=o.scale;
+    double angle=-o.rotation*pi/180;
+    double rx=x*std::cos(angle)-y*std::sin(angle), ry=x*std::sin(angle)+y*std::cos(angle);
+    x=rx;y=ry;
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
