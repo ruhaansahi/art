@@ -197,6 +197,7 @@ int run(int argc,char** argv) {
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
+    if(o.scale<.05||o.scale>20||std::abs(o.rotation)>360000||std::abs(o.time)>1e6||std::abs(o.skew_x)>3||std::abs(o.skew_y)>3||std::abs(1-o.skew_x*o.skew_y)<.05) throw std::runtime_error("Invalid or singular transform");
     draw(o);
     return 0;
 }
