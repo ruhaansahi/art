@@ -125,6 +125,7 @@ void coordinates(double& x,double& y,const Options& o) {
     double rx=x*std::cos(angle)-y*std::sin(angle), ry=x*std::sin(angle)+y*std::cos(angle);
     double determinant=1-o.skew_x*o.skew_y;
     x=(rx-o.skew_x*ry)/determinant;y=(ry-o.skew_y*rx)/determinant;
+    if(o.matrix=="grid") {x=wrap(x);y=wrap(y);}
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
@@ -194,6 +195,7 @@ int run(int argc,char** argv) {
         if(arg=="--shape") o.shape=take();
         else if(arg=="--time") o.time=number(take());
         else if(arg=="--transform") {o.scale=number(take());o.rotation=number(take());o.skew_x=number(take());o.skew_y=number(take());}
+        else if(arg=="--matrix") o.matrix=take();
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
