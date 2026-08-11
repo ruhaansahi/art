@@ -126,6 +126,10 @@ void coordinates(double& x,double& y,const Options& o) {
     double determinant=1-o.skew_x*o.skew_y;
     x=(rx-o.skew_x*ry)/determinant;y=(ry-o.skew_y*rx)/determinant;
     if(o.matrix=="grid") {x=wrap(x);y=wrap(y);}
+    else if(o.matrix=="radial") {
+        double angle2=std::atan2(y,x), sector=std::round(angle2/(pi/4))*(pi/4);
+        x=(x-.85*std::cos(sector))*2.8;y=(y-.85*std::sin(sector))*2.8;
+    }
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
