@@ -130,6 +130,7 @@ void coordinates(double& x,double& y,const Options& o) {
         double angle2=std::atan2(y,x), sector=std::round(angle2/(pi/4))*(pi/4);
         x=(x-.85*std::cos(sector))*2.8;y=(y-.85*std::sin(sector))*2.8;
     }
+    else if(o.matrix=="sine-wave") {y-=.35*std::sin(3*x+o.time);x=wrap(x);}
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
