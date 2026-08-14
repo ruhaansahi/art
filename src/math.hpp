@@ -131,6 +131,10 @@ void coordinates(double& x,double& y,const Options& o) {
         x=(x-.85*std::cos(sector))*2.8;y=(y-.85*std::sin(sector))*2.8;
     }
     else if(o.matrix=="sine-wave") {y-=.35*std::sin(3*x+o.time);x=wrap(x);}
+    else if(o.matrix=="vortex") {
+        double radius=std::hypot(x,y), a=std::atan2(y,x)+radius*2+o.time*.2;
+        x=wrap(radius*std::cos(a));y=wrap(radius*std::sin(a));
+    }
 }
 double field(double x,double y,const Options& o,const std::vector<double>& density) {
     if(o.shape=="donut") return donut(x,y,o.time);
