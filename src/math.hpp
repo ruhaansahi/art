@@ -208,6 +208,7 @@ int run(int argc,char** argv) {
         else if(arg=="--time") o.time=number(take());
         else if(arg=="--transform") {o.scale=number(take());o.rotation=number(take());o.skew_x=number(take());o.skew_y=number(take());}
         else if(arg=="--matrix") o.matrix=take();
+        else if(arg=="--seed") {int value=integer(take());if(value<0) throw std::runtime_error("Seed must be nonnegative");o.seed=static_cast<unsigned>(value);}
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
