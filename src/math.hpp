@@ -194,6 +194,7 @@ void draw(const Options& o) {
             double value=clamp(field(x,y,o,density));
             char pixel=' ';
             if(o.shading=="solid") pixel=value>.22?'*':' ';
+            else if(o.shading=="binary") pixel=value>.5?'*':' ';
             std::cout<<pixel;
         }
         std::cout<<'\n';
@@ -211,6 +212,7 @@ int run(int argc,char** argv) {
         else if(arg=="--seed") {int value=integer(take());if(value<0) throw std::runtime_error("Seed must be nonnegative");o.seed=static_cast<unsigned>(value);}
         else if(arg=="--width") o.width=integer(take());
         else if(arg=="--resolution") {o.width=integer(take());o.height=integer(take());}
+        else if(arg=="--shading") o.shading=take();
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
