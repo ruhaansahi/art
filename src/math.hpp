@@ -195,6 +195,11 @@ void draw(const Options& o) {
             char pixel=' ';
             if(o.shading=="solid") pixel=value>.22?'*':' ';
             else if(o.shading=="binary") pixel=value>.5?'*':' ';
+            else {
+                double weight=clamp((x+1)/2,.2,1);
+                auto index=static_cast<std::size_t>(clamp(value*weight)*(o.ramp.size()-1));
+                pixel=o.ramp[index];
+            }
             std::cout<<pixel;
         }
         std::cout<<'\n';
