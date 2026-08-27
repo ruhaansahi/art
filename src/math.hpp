@@ -196,7 +196,7 @@ void draw(const Options& o) {
             if(o.shading=="solid") pixel=value>.22?'*':' ';
             else if(o.shading=="binary") pixel=value>.5?'*':' ';
             else {
-                double weight=clamp((x+1)/2,.2,1);
+                double weight=o.shading=="gradient-linear"?clamp((x+1)/2,.2,1):clamp(1-.5*std::hypot(x,y),.2,1);
                 auto index=static_cast<std::size_t>(clamp(value*weight)*(o.ramp.size()-1));
                 pixel=o.ramp[index];
             }
