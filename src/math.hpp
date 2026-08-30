@@ -218,6 +218,7 @@ int run(int argc,char** argv) {
         else if(arg=="--width") o.width=integer(take());
         else if(arg=="--resolution") {o.width=integer(take());o.height=integer(take());}
         else if(arg=="--shading") o.shading=take();
+        else if(arg=="--ramp") o.ramp=take();
         else throw std::runtime_error("Unknown math option: "+arg);
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
