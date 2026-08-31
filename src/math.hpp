@@ -53,7 +53,12 @@ struct Options {
     unsigned seed=20261022;
     double scale=1, rotation=0, skew_x=0, skew_y=0, time=0;
 };
-double number(const std::string& text) {return std::stod(text);}
+double number(const std::string& text) {
+    std::size_t end=0;
+    double value=std::stod(text,&end);
+    if (end!=text.size() || !std::isfinite(value)) throw std::runtime_error("Expected finite number: "+text);
+    return value;
+}
 bool one_of(const std::string& v, const std::vector<std::string>& values) {
     return std::find(values.begin(),values.end(),v)!=values.end();
 }
@@ -223,6 +228,7 @@ int run(int argc,char** argv) {
     }
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
     if(o.scale<.05||o.scale>20||std::abs(o.rotation)>360000||std::abs(o.time)>1e6||std::abs(o.skew_x)>3||std::abs(o.skew_y)>3||std::abs(1-o.skew_x*o.skew_y)<.05) throw std::runtime_error("Invalid or singular transform");
+    if(o.ramp.size()<2||o.ramp.size()>32||std::any_of(o.ramp.begin(),o.ramp.end(),[](unsigned char c){return c<32||c>126;})) throw std::runtime_error("Ramp must contain 2..32 printable ASCII characters");
     draw(o);
     return 0;
 }
