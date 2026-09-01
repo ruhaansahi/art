@@ -229,6 +229,8 @@ int run(int argc,char** argv) {
     if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
     if(o.scale<.05||o.scale>20||std::abs(o.rotation)>360000||std::abs(o.time)>1e6||std::abs(o.skew_x)>3||std::abs(o.skew_y)>3||std::abs(1-o.skew_x*o.skew_y)<.05) throw std::runtime_error("Invalid or singular transform");
     if(o.ramp.size()<2||o.ramp.size()>32||std::any_of(o.ramp.begin(),o.ramp.end(),[](unsigned char c){return c<32||c>126;})) throw std::runtime_error("Ramp must contain 2..32 printable ASCII characters");
+    if(!one_of(o.matrix,{"grid","radial","sine-wave","vortex","chaos"})) throw std::runtime_error("Unknown matrix");
+    if(o.width<16||o.width>400||o.height<8||o.height>160) throw std::runtime_error("Resolution must be 16..400 by 8..160");
     draw(o);
     return 0;
 }
