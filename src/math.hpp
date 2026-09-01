@@ -6,47 +6,37 @@ namespace mathart {
 constexpr double pi = 3.14159265358979323846;
 double clamp(double v, double low = 0, double high = 1) { return std::max(low, std::min(high, v)); }
 struct Vec {
-    double x,y,z;
-    Vec operator+(Vec b) const {return {x+b.x,y+b.y,z+b.z};}
-    Vec operator-(Vec b) const {return {x-b.x,y-b.y,z-b.z};}
-    Vec operator*(double k) const {return {x*k,y*k,z*k};}
+    double x, y, z;
+    Vec operator+(Vec b) const { return {x+b.x,y+b.y,z+b.z}; }
+    Vec operator-(Vec b) const { return {x-b.x,y-b.y,z-b.z}; }
+    Vec operator*(double k) const { return {x*k,y*k,z*k}; }
 };
 double dot(Vec a, Vec b) { return a.x*b.x+a.y*b.y+a.z*b.z; }
-
 double length(Vec v) { return std::sqrt(dot(v,v)); }
-
 Vec unit(Vec v) { return v*(1/std::max(1e-10,length(v))); }
-
 double mix(double a, double b, double t) { return a+(b-a)*t; }
-
 double wrap(double v) { return v-2*std::floor((v+1)/2); }
-
 double fade(double t) { return t*t*t*(t*(t*6-15)+10); }
-
 std::uint32_t hash(int x, int y, unsigned seed) {
     auto h = static_cast<std::uint32_t>(x)*374761393u + static_cast<std::uint32_t>(y)*668265263u + seed;
     h = (h^(h>>13))*1274126177u;
     return h^(h>>16);
 }
-
 double gradient(int x, int y, double dx, double dy, unsigned seed) {
     double angle = (hash(x,y,seed)%65536)*2*pi/65536;
     return std::cos(angle)*dx+std::sin(angle)*dy;
 }
-
 double perlin(double x, double y, unsigned seed) {
     int ix=static_cast<int>(std::floor(x)), iy=static_cast<int>(std::floor(y));
     double dx=x-ix, dy=y-iy, u=fade(dx), v=fade(dy);
     return mix(mix(gradient(ix,iy,dx,dy,seed),gradient(ix+1,iy,dx-1,dy,seed),u),
                mix(gradient(ix,iy+1,dx,dy-1,seed),gradient(ix+1,iy+1,dx-1,dy-1,seed),u),v);
 }
-
 double noise(double x, double y, unsigned seed) {
     double sum=0, amplitude=.55;
     for (int i=0;i<4;++i) { sum+=amplitude*perlin(x,y,seed+i*31); x*=2; y*=2; amplitude*=.5; }
     return sum;
 }
-
 struct Options {
     std::string shape="moire", matrix="grid", shading="solid", ramp=" .:-=+*#%@";
     int width=120, height=40;
@@ -111,6 +101,7 @@ double fractal(double x,double y,double t,bool julia) {
     }
     return 1;
 }
+// Clifford orbit density is computed once, then sampled like the analytic fields.
 std::vector<double> clifford(double t) {
     std::vector<double> density(256*256);
     double x=.1,y=.1,a=-1.4+.05*std::sin(t),b=1.6,c=1,d=.7;
@@ -216,21 +207,21 @@ int run(int argc,char** argv) {
         std::string arg=argv[i];
         auto take=[&]() {if(i+1>=argc) throw std::runtime_error("Missing value for "+arg);return std::string(argv[++i]);};
         if(arg=="--shape") o.shape=take();
-        else if(arg=="--time") o.time=number(take());
-        else if(arg=="--transform") {o.scale=number(take());o.rotation=number(take());o.skew_x=number(take());o.skew_y=number(take());}
         else if(arg=="--matrix") o.matrix=take();
-        else if(arg=="--seed") {int value=integer(take());if(value<0) throw std::runtime_error("Seed must be nonnegative");o.seed=static_cast<unsigned>(value);}
-        else if(arg=="--width") o.width=integer(take());
-        else if(arg=="--resolution") {o.width=integer(take());o.height=integer(take());}
         else if(arg=="--shading") o.shading=take();
         else if(arg=="--ramp") o.ramp=take();
+        else if(arg=="--resolution") {o.width=integer(take());o.height=integer(take());}
+        else if(arg=="--transform") {o.scale=number(take());o.rotation=number(take());o.skew_x=number(take());o.skew_y=number(take());}
+        else if(arg=="--time") o.time=number(take());
+        else if(arg=="--seed") {int value=integer(take());if(value<0) throw std::runtime_error("Seed must be nonnegative");o.seed=static_cast<unsigned>(value);}
         else throw std::runtime_error("Unknown math option: "+arg);
     }
-    if(!one_of(o.shape,{"circle","star","metaball","fractal","moire","julia","clifford","donut","wave"})) throw std::runtime_error("Unknown math shape");
+    if(!one_of(o.shape,{"circle","star","metaball","donut","fractal","wave","moire","julia","clifford"})) throw std::runtime_error("Unknown math shape");
+    if(!one_of(o.matrix,{"grid","radial","sine-wave","vortex","chaos"})) throw std::runtime_error("Unknown matrix");
+    if(!one_of(o.shading,{"solid","binary","gradient-linear","gradient-radial"})) throw std::runtime_error("Unknown shading");
+    if(o.width<16||o.width>400||o.height<8||o.height>160) throw std::runtime_error("Resolution must be 16..400 by 8..160");
     if(o.scale<.05||o.scale>20||std::abs(o.rotation)>360000||std::abs(o.time)>1e6||std::abs(o.skew_x)>3||std::abs(o.skew_y)>3||std::abs(1-o.skew_x*o.skew_y)<.05) throw std::runtime_error("Invalid or singular transform");
     if(o.ramp.size()<2||o.ramp.size()>32||std::any_of(o.ramp.begin(),o.ramp.end(),[](unsigned char c){return c<32||c>126;})) throw std::runtime_error("Ramp must contain 2..32 printable ASCII characters");
-    if(!one_of(o.matrix,{"grid","radial","sine-wave","vortex","chaos"})) throw std::runtime_error("Unknown matrix");
-    if(o.width<16||o.width>400||o.height<8||o.height>160) throw std::runtime_error("Resolution must be 16..400 by 8..160");
     draw(o);
     return 0;
 }

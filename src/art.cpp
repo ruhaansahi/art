@@ -7,7 +7,10 @@
 #include <vector>
 
 // Coordinates use y-up geometry. Every output pixel occupies two columns.
-static const std::vector<std::string> names = {"square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle", "heart", "star", "arrow", "cross", "hourglass", "hexagon"};
+static const std::vector<std::string> names = {
+    "square", "rectangle", "triangle", "inverted-triangle", "diamond", "circle",
+    "heart", "star", "arrow", "cross", "hourglass", "hexagon"
+};
 
 bool star(double x, double y) {
     constexpr double pi = 3.14159265358979323846;
