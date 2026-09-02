@@ -40,6 +40,8 @@ def build(root=ROOT):
 def validate(recipe):
     if not isinstance(recipe, dict):
         raise ValueError("Recipe must be a JSON object")
+    if recipe.get("engine") == "math":
+        return validate_math(recipe)
     for key, low, high in (("rows", 1, 20), ("cols", 1, 20), ("size", 5, 81)):
         value = recipe.get(key)
         if type(value) is not int or not low <= value <= high:
@@ -84,6 +86,17 @@ def selection(text):
             raise ValueError("Each quantity must be 1..100")
         sequence.extend([name] * count)
     return sequence
+
+
+def validate_math(recipe):
+    return recipe
+
+
+def math_recipe(shape="moire", matrix="grid", shading="solid", resolution=None,
+                transform=None, seed=20261022, moment=0, ramp=" .:-=+*#%@"):
+    return validate(dict(engine="math", shape=shape, matrix=matrix, shading=shading,
+                         resolution=list(resolution or (120, 40)), transform=list(transform or (1, 0, 0, 0)),
+                         seed=seed, time=moment, ramp=ramp))
 
 
 def main():
