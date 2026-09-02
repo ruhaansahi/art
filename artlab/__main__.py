@@ -89,6 +89,8 @@ def selection(text):
 
 
 def validate_math(recipe):
+    if recipe.get("shape") not in MATH_SHAPES or recipe.get("matrix") not in MATRICES or recipe.get("shading") not in SHADING:
+        raise ValueError("Unknown math shape, matrix, or shading")
     return recipe
 
 
