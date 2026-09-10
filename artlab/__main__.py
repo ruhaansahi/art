@@ -91,6 +91,11 @@ def selection(text):
 def validate_math(recipe):
     if recipe.get("shape") not in MATH_SHAPES or recipe.get("matrix") not in MATRICES or recipe.get("shading") not in SHADING:
         raise ValueError("Unknown math shape, matrix, or shading")
+    resolution = recipe.get("resolution")
+    if (not isinstance(resolution, list) or len(resolution) != 2 or
+            any(type(value) is not int for value in resolution) or
+            not 16 <= resolution[0] <= 400 or not 8 <= resolution[1] <= 160):
+        raise ValueError("Resolution must be WIDTH HEIGHT in 16..400 by 8..160")
     return recipe
 
 
