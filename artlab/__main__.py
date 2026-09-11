@@ -96,6 +96,10 @@ def validate_math(recipe):
             any(type(value) is not int for value in resolution) or
             not 16 <= resolution[0] <= 400 or not 8 <= resolution[1] <= 160):
         raise ValueError("Resolution must be WIDTH HEIGHT in 16..400 by 8..160")
+    transform = recipe.get("transform")
+    if (not isinstance(transform, list) or len(transform) != 4 or
+            any(type(value) not in (int, float) or not math.isfinite(value) for value in transform)):
+        raise ValueError("Transform requires four finite numbers: SCALE ANGLE SKEW_X SKEW_Y")
     return recipe
 
 
