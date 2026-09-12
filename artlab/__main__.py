@@ -104,6 +104,9 @@ def validate_math(recipe):
     if (not .05 <= scale <= 20 or abs(angle) > 360000 or abs(skew_x) > 3 or abs(skew_y) > 3 or
             abs(1 - skew_x * skew_y) < .05):
         raise ValueError("Invalid or singular transform")
+    ramp = recipe.get("ramp")
+    if not isinstance(ramp, str) or not 2 <= len(ramp) <= 32 or any(not 32 <= ord(char) <= 126 for char in ramp):
+        raise ValueError("Ramp must contain 2..32 printable ASCII characters")
     return recipe
 
 
