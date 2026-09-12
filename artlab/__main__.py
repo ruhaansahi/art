@@ -100,6 +100,10 @@ def validate_math(recipe):
     if (not isinstance(transform, list) or len(transform) != 4 or
             any(type(value) not in (int, float) or not math.isfinite(value) for value in transform)):
         raise ValueError("Transform requires four finite numbers: SCALE ANGLE SKEW_X SKEW_Y")
+    scale, angle, skew_x, skew_y = transform
+    if (not .05 <= scale <= 20 or abs(angle) > 360000 or abs(skew_x) > 3 or abs(skew_y) > 3 or
+            abs(1 - skew_x * skew_y) < .05):
+        raise ValueError("Invalid or singular transform")
     return recipe
 
 
