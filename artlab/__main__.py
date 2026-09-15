@@ -107,6 +107,11 @@ def validate_math(recipe):
     ramp = recipe.get("ramp")
     if not isinstance(ramp, str) or not 2 <= len(ramp) <= 32 or any(not 32 <= ord(char) <= 126 for char in ramp):
         raise ValueError("Ramp must contain 2..32 printable ASCII characters")
+    if type(recipe.get("seed")) is not int or not 0 <= recipe["seed"] <= 2147483647:
+        raise ValueError("Seed must be an integer in 0..2147483647")
+    moment = recipe.get("time")
+    if type(moment) not in (int, float) or not math.isfinite(moment) or abs(moment) > 1e6:
+        raise ValueError("Time must be a finite number between -1000000 and 1000000")
     return recipe
 
 
