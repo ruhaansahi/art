@@ -62,7 +62,13 @@ def validate(recipe):
 def render(recipe, binary=None):
     validate(recipe)
     binary = binary or build()
-    arguments = [str(binary), "--rows", str(recipe["rows"]), "--cols", str(recipe["cols"]),
+    if recipe.get("engine") == "math":
+        arguments = [str(binary), "--shape", recipe["shape"], "--matrix", recipe["matrix"],
+                     "--shading", recipe["shading"], "--resolution", *map(str, recipe["resolution"]),
+                     "--transform", *map(str, recipe["transform"]), "--time", str(recipe["time"]),
+                     "--seed", str(recipe["seed"]), "--ramp", recipe["ramp"]]
+    else:
+        arguments = [str(binary), "--rows", str(recipe["rows"]), "--cols", str(recipe["cols"]),
                      "--size", str(recipe["size"]), "--style", recipe["style"],
                      "--sequence", ",".join(recipe["sequence"])]
     return subprocess.run(arguments, check=True, capture_output=True, text=True).stdout
