@@ -145,9 +145,10 @@ def main():
         drawing.add_argument("--style", choices=("filled", "outline"), default="filled")
         drawing.add_argument("--seed", type=int, default=20261022)
         drawing.add_argument("--shuffle", action="store_true")
+        drawing.add_argument("--matrix", choices=MATRICES, default="grid")
         drawing.add_argument("--output", type=Path)
         drawing.add_argument("--write-recipe", type=Path)
-    parser.set_defaults(**{'matrix': 'grid', 'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
+    parser.set_defaults(**{'shading': 'solid', 'resolution': [120, 40], 'transform': [1, 0, 0, 0], 'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
     args = parser.parse_args()
     try:
         if args.command == "shapes":
