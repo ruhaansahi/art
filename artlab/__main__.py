@@ -149,9 +149,10 @@ def main():
         drawing.add_argument("--shading", choices=SHADING, default="solid")
         drawing.add_argument("--resolution", type=int, nargs=2, default=[120, 40], metavar=("WIDTH", "HEIGHT"))
         drawing.add_argument("--transform", type=float, nargs=4, default=[1, 0, 0, 0], metavar=("SCALE", "ANGLE", "SKEW_X", "SKEW_Y"))
+        drawing.add_argument("--ramp", default=" .:-=+*#%@")
         drawing.add_argument("--output", type=Path)
         drawing.add_argument("--write-recipe", type=Path)
-    parser.set_defaults(**{'ramp': ' .:-=+*#%@', 'time': 0, 'frames': 1, 'fps': 12})
+    parser.set_defaults(**{'time': 0, 'frames': 1, 'fps': 12})
     args = parser.parse_args()
     try:
         if args.command == "shapes":
