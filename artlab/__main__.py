@@ -151,9 +151,10 @@ def main():
         drawing.add_argument("--transform", type=float, nargs=4, default=[1, 0, 0, 0], metavar=("SCALE", "ANGLE", "SKEW_X", "SKEW_Y"))
         drawing.add_argument("--ramp", default=" .:-=+*#%@")
         drawing.add_argument("--time", type=float, default=0)
+        drawing.add_argument("--frames", type=int, default=1)
         drawing.add_argument("--output", type=Path)
         drawing.add_argument("--write-recipe", type=Path)
-    parser.set_defaults(**{'frames': 1, 'fps': 12})
+    parser.set_defaults(**{'fps': 12})
     args = parser.parse_args()
     try:
         if args.command == "shapes":
@@ -188,7 +189,7 @@ def main():
                 frames.append(output)
             result = "\n".join(frames)
             if args.output:
-                args.output.write_text(result, encoding="utf-8")
+                args.output.write_text(frames[0], encoding="utf-8")
             else:
                 print(result, end="")
             if args.write_recipe:
