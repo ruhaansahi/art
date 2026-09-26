@@ -133,7 +133,7 @@ def main():
     commands = parser.add_subparsers(dest="command")
     commands.add_parser("shapes")
     commands.add_parser("build")
-    for command in ("render",):
+    for command in ("render", "math"):
         drawing = commands.add_parser(command)
         sources = drawing.add_mutually_exclusive_group()
         sources.add_argument("--shapes", help="heart:4,star:6,circle:10; expanded in listed order")
