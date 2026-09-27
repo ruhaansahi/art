@@ -191,7 +191,11 @@ def main():
             for frame in range(args.frames):
                 current = dict(recipe, time=recipe.get("time", 0) + frame / args.fps) if args.frames > 1 else recipe
                 output = render(current)
-                frames.append(output)
+                if args.frames > 1 and not args.output and sys.stdout.isatty():
+                    print("\033[H\033[2J" + output, end="", flush=True)
+                    time.sleep(1 / args.fps)
+                else:
+                    frames.append(output)
             result = "\n".join(frames)
             if args.output:
                 args.output.write_text(frames[0], encoding="utf-8")
