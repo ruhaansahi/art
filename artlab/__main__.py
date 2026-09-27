@@ -152,9 +152,10 @@ def main():
         drawing.add_argument("--ramp", default=" .:-=+*#%@")
         drawing.add_argument("--time", type=float, default=0)
         drawing.add_argument("--frames", type=int, default=1)
+        drawing.add_argument("--fps", type=float, default=12)
         drawing.add_argument("--output", type=Path)
         drawing.add_argument("--write-recipe", type=Path)
-    parser.set_defaults(**{'fps': 12})
+    parser.set_defaults(**{})
     args = parser.parse_args()
     try:
         if args.command == "shapes":
@@ -182,6 +183,10 @@ def main():
                 recipe = dict(recipe, sequence=list(recipe["sequence"]))
                 random.Random(args.seed).shuffle(recipe["sequence"])
                 recipe["seed"] = args.seed
+            if not 1 <= args.frames <= 300 or not math.isfinite(args.fps) or not 1 <= args.fps <= 60:
+                raise ValueError("Frames must be 1..300 and fps must be 1..60")
+            if args.frames > 1 and recipe.get("engine") != "math":
+                raise ValueError("Animation requires a math recipe")
             frames = []
             for frame in range(args.frames):
                 current = dict(recipe, time=recipe.get("time", 0) + frame / args.fps) if args.frames > 1 else recipe
