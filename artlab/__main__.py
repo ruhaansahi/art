@@ -128,6 +128,15 @@ def math_recipe(shape="moire", matrix="grid", shading="solid", resolution=None,
                          seed=seed, time=moment, ramp=ramp))
 
 
+def describe_artwork(recipe):
+    if recipe.get("engine") == "math":
+        width, height = recipe["resolution"]
+        return f"{width}x{height} {recipe['matrix']} {recipe['shape']} ({recipe['shading']})"
+    counts = Counter(shape for shape in recipe["sequence"] if shape != "_")
+    shapes = ", ".join(f"{name} x{count}" for name, count in counts.items())
+    return f"{recipe['size']}px {recipe['style']} {recipe['rows']}x{recipe['cols']} grid: {shapes}"
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
