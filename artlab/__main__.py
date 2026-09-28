@@ -198,7 +198,7 @@ def main():
                     frames.append(output)
             result = "\n".join(frames)
             if args.output:
-                args.output.write_text(frames[0], encoding="utf-8")
+                args.output.write_text(result, encoding="utf-8")
             else:
                 print(result, end="")
             if args.write_recipe:
