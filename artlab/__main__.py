@@ -137,6 +137,61 @@ def describe_artwork(recipe):
     return f"{recipe['size']}px {recipe['style']} {recipe['rows']}x{recipe['cols']} grid: {shapes}"
 
 
+def artwork_title(recipes, variation=None):
+    if not recipes:
+        raise ValueError("An artwork title requires at least one recipe")
+    functional = [{key: value for key, value in recipe.items() if key != "metadata"} for recipe in recipes]
+    digest = hashlib.sha256(json.dumps(functional, sort_keys=True).encode()).digest()
+    variant = (int.from_bytes(digest[:4], "big") if variation is None else variation) % 6
+    names = {"circle": "circle", "star": "star", "metaball": "metaball field", "donut": "3D torus",
+             "fractal": "Mandelbrot set", "wave": "flow field", "moire": "moire pattern",
+             "julia": "Julia set", "clifford": "Clifford attractor"}
+    def joined(items):
+        return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+    if len(recipes) == 1:
+        recipe = recipes[0]
+        if recipe.get("engine") == "math":
+            name = names[recipe["shape"]]
+            capital = name[:1].upper() + name[1:]
+            layout = {"chaos": "noise-warped"}.get(recipe["matrix"], recipe["matrix"])
+            shading = {"solid": "solid asterisks", "binary": "a high-contrast fill",
+                       "gradient-linear": "a smooth light-to-dark ramp", "gradient-radial": "radial shading"}[recipe["shading"]]
+            width, height = recipe["resolution"]
+            return (f"Render the {name} in a {layout} layout",
+                    f"A {layout} take on the {name}",
+                    f"Draw the {name} at {width}x{height}",
+                    f"{capital} with {shading}",
+                    f"Play with a {layout} {name}",
+                    f"{capital}, arranged as a {layout}")[variant]
+        counts = Counter(shape for shape in recipe["sequence"] if shape != "_")
+        plural = {"cross": "crosses", "hourglass": "hourglasses"}
+        labels = []
+        for shape, count in counts.items():
+            name = shape.replace("-", " ")
+            article = "an" if name[0] in "aeiou" or shape == "hourglass" else "a"
+            labels.append(f"{article} {name}" if count == 1 else f"{count} {plural.get(shape, name + 's')}")
+        total = sum(counts.values())
+        label = "blank cells" if not labels else joined(labels) if len(labels) <= 3 else f"a mix of {total} shapes"
+        style = "outlined" if recipe["style"] == "outline" else "filled"
+        rows, cols = recipe["rows"], recipe["cols"]
+        action = "Outline" if style == "outlined" else "Fill in"
+        return (f"Draw {label} in a {rows}x{cols} grid",
+                f"Arrange {label} as ASCII art",
+                f"{style.capitalize()} shapes in a {rows}x{cols} layout",
+                f"A {rows}x{cols} grid of {label}",
+                f"{action} {label}",
+                f"Render {label} using the {style} style")[variant]
+    modes = list(dict.fromkeys(names.get(recipe.get("shape"), "shape grids") for recipe in recipes))
+    label = joined(modes) if len(modes) <= 3 else "shapes and mathematical patterns"
+    count = len(recipes)
+    return (f"Put together {count} ASCII sketches",
+            f"Mix {label} in an ASCII collection",
+            f"A few more renders: {label}",
+            f"Save {count} more pieces for the gallery",
+            f"{count} new ASCII scenes",
+            f"Bring {label} together in one render set")[variant]
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
