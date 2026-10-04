@@ -192,6 +192,17 @@ def artwork_title(recipes, variation=None):
             f"Bring {label} together in one render set")[variant]
 
 
+def math_study(seed, ordinal):
+    rng = random.Random(seed)
+    return math_recipe(shape=MATH_SHAPES[ordinal % len(MATH_SHAPES)],
+                       matrix=MATRICES[(ordinal // len(MATH_SHAPES)) % len(MATRICES)],
+                       shading=SHADING[(ordinal // 45) % len(SHADING)],
+                       resolution=rng.choice(((80, 28), (100, 34), (120, 40))),
+                       transform=(round(rng.uniform(.8, 1.3), 3), round(rng.uniform(-35, 35), 2),
+                                  round(rng.uniform(-.25, .25), 3), round(rng.uniform(-.25, .25), 3)),
+                       seed=rng.randrange(2147483648), moment=round(rng.uniform(0, 12), 3))
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
