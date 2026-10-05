@@ -21,3 +21,19 @@ def fonts(size):
     raise RuntimeError("Install Consolas or DejaVu Sans Mono to regenerate the previews")
 
 
+def tile(text, title, font_size=11):
+    from PIL import Image, ImageDraw
+    font, heading = fonts(font_size), fonts(16)
+    lines = text.splitlines()
+    line_height = math.ceil(font_size * 1.25)
+    width = max(220, math.ceil(max(map(len, lines)) * font.getlength("M")) + 32,
+                math.ceil(heading.getlength(title)) + 32)
+    height = 54 + len(lines) * line_height
+    image = Image.new("RGB", (width, height), "#0d1520")
+    draw = ImageDraw.Draw(image)
+    draw.text((16, 12), title, font=heading, fill="#74e1d2")
+    for row, line in enumerate(lines):
+        draw.text((16, 42 + row * line_height), line, font=font, fill="#e0eaf3")
+    return image
+
+
