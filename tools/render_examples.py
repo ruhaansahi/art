@@ -37,3 +37,16 @@ def tile(text, title, font_size=11):
     return image
 
 
+def board(images, columns):
+    from PIL import Image
+    width = max(image.width for image in images)
+    height = max(image.height for image in images)
+    rows = math.ceil(len(images) / columns)
+    result = Image.new("RGB", (columns * width + (columns + 1) * 12,
+                               rows * height + (rows + 1) * 12), "#070c13")
+    for index, image in enumerate(images):
+        result.paste(image, (12 + (index % columns) * (width + 12),
+                             12 + (index // columns) * (height + 12)))
+    return result
+
+
