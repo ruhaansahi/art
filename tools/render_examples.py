@@ -50,3 +50,19 @@ def board(images, columns):
     return result
 
 
+def generate(destination):
+    destination.mkdir(parents=True, exist_ok=True)
+    binary = build()
+    entries, grouped = [], defaultdict(list)
+
+    def save(identifier, label, group, recipe, font_size=11):
+        text = render(recipe, binary)
+        (destination / f"{identifier}.txt").write_text(text, encoding="utf-8", newline="\n")
+        (destination / f"{identifier}.json").write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
+        image = tile(text, label, font_size)
+        image.save(destination / f"{identifier}.png")
+        entries.append(dict(id=identifier, label=label, group=group, recipe=f"{identifier}.json",
+                            text=f"{identifier}.txt", image=f"{identifier}.png"))
+        grouped[group].append(image)
+
+    save("filled-heart", "Heart", "shapes-filled", dict(rows=1, cols=1, size=13, style="filled", sequence=["heart"], seed=42), 12)
