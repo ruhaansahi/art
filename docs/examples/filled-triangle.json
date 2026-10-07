@@ -1,0 +1,10 @@
+{
+  "rows": 1,
+  "cols": 1,
+  "size": 13,
+  "style": "filled",
+  "sequence": [
+    "triangle"
+  ],
+  "seed": 42
+}

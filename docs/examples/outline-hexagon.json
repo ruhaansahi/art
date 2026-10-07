@@ -1,0 +1,10 @@
+{
+  "rows": 1,
+  "cols": 1,
+  "size": 13,
+  "style": "outline",
+  "sequence": [
+    "hexagon"
+  ],
+  "seed": 42
+}

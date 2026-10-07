@@ -65,4 +65,15 @@ def generate(destination):
                             text=f"{identifier}.txt", image=f"{identifier}.png"))
         grouped[group].append(image)
 
-    save("filled-heart", "Heart", "shapes-filled", dict(rows=1, cols=1, size=13, style="filled", sequence=["heart"], seed=42), 12)
+    for style in ("filled", "outline"):
+        for shape in SHAPES:
+            save(f"{style}-{shape}", shape.replace("-", " "), f"shapes-{style}",
+                 dict(rows=1, cols=1, size=13, style=style, sequence=[shape], seed=42), 12)
+    boards = []
+    for group, images in grouped.items():
+        if group == "mixed-grid":
+            continue
+        columns = 4 if group.startswith("shapes-") else 2 if group == "transforms" else 3
+        filename = f"{group}.png"
+        board(images, columns).save(destination / filename)
+        boards.append(filename)
