@@ -69,6 +69,13 @@ def generate(destination):
         for shape in SHAPES:
             save(f"{style}-{shape}", shape.replace("-", " "), f"shapes-{style}",
                  dict(rows=1, cols=1, size=13, style=style, sequence=[shape], seed=42), 12)
+    labels = {"circle": "Circle canvas", "star": "Star canvas", "metaball": "SDF metaballs",
+              "donut": "Ray-marched 3D torus", "fractal": "Mandelbrot fractal", "wave": "Perlin flow field",
+              "moire": "Moire interference", "julia": "Julia fractal", "clifford": "Clifford attractor"}
+    for shape in MATH_SHAPES:
+        shading = "binary" if shape == "moire" else "solid" if shape in ("star", "wave") else "gradient-linear"
+        save(f"math-{shape}", labels[shape], "math-modes",
+             math_recipe(shape=shape, shading=shading, resolution=(64, 32), seed=42, moment=1.2))
     boards = []
     for group, images in grouped.items():
         if group == "mixed-grid":

@@ -1,0 +1,19 @@
+{
+  "engine": "math",
+  "shape": "wave",
+  "matrix": "grid",
+  "shading": "solid",
+  "resolution": [
+    64,
+    32
+  ],
+  "transform": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "seed": 42,
+  "time": 1.2,
+  "ramp": " .:-=+*#%@"
+}
