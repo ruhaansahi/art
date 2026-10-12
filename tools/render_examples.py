@@ -76,6 +76,18 @@ def generate(destination):
         shading = "binary" if shape == "moire" else "solid" if shape in ("star", "wave") else "gradient-linear"
         save(f"math-{shape}", labels[shape], "math-modes",
              math_recipe(shape=shape, shading=shading, resolution=(64, 32), seed=42, moment=1.2))
+    for matrix in MATRICES:
+        save(f"layout-{matrix}", matrix, "arrangements",
+             math_recipe(shape="star", matrix=matrix, resolution=(64, 32), seed=42, moment=1.2))
+    for shading in SHADING:
+        save(f"shading-{shading}", shading, "shading",
+             math_recipe(shape="donut", shading=shading, resolution=(64, 32), moment=.6))
+    save("shading-custom-ramp", 'Custom ramp: " .oO@"', "shading",
+         math_recipe(shape="donut", shading="gradient-linear", resolution=(64, 32), moment=.6, ramp=" .oO@"))
+    for identifier, label, transform in (("original", "Original star", (1, 0, 0, 0)),
+                                         ("transformed", "Scale + rotation + skew", (1.15, 27, .24, -.12))):
+        save(f"transform-{identifier}", label, "transforms",
+             math_recipe(shape="star", resolution=(64, 32), transform=transform, shading="solid"))
     boards = []
     for group, images in grouped.items():
         if group == "mixed-grid":

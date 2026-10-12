@@ -1,0 +1,19 @@
+{
+  "engine": "math",
+  "shape": "donut",
+  "matrix": "grid",
+  "shading": "gradient-linear",
+  "resolution": [
+    64,
+    32
+  ],
+  "transform": [
+    1,
+    0,
+    0,
+    0
+  ],
+  "seed": 20261022,
+  "time": 0.6,
+  "ramp": " .oO@"
+}
