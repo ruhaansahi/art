@@ -1,0 +1,29 @@
+{
+  "rows": 4,
+  "cols": 5,
+  "size": 9,
+  "style": "outline",
+  "sequence": [
+    "heart",
+    "heart",
+    "heart",
+    "heart",
+    "star",
+    "star",
+    "star",
+    "star",
+    "star",
+    "star",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle",
+    "circle"
+  ],
+  "seed": 42
+}

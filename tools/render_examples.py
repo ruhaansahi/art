@@ -88,6 +88,8 @@ def generate(destination):
                                          ("transformed", "Scale + rotation + skew", (1.15, 27, .24, -.12))):
         save(f"transform-{identifier}", label, "transforms",
              math_recipe(shape="star", resolution=(64, 32), transform=transform, shading="solid"))
+    save("mixed-grid", "4x5 grid: hearts, stars, circles", "mixed-grid",
+         dict(rows=4, cols=5, size=9, style="outline", sequence=["heart"] * 4 + ["star"] * 6 + ["circle"] * 10, seed=42))
     boards = []
     for group, images in grouped.items():
         if group == "mixed-grid":
