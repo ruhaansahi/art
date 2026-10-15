@@ -98,3 +98,21 @@ def generate(destination):
         filename = f"{group}.png"
         board(images, columns).save(destination / filename)
         boards.append(filename)
+    animations = []
+    for shape, label in (("donut", "Rotating 3D torus"), ("metaball", "Moving SDF metaballs")):
+        frames = []
+        recipes = []
+        for frame in range(16):
+            recipe = math_recipe(shape=shape, resolution=(64, 32), shading="gradient-linear", moment=frame * .18)
+            recipes.append(recipe)
+            frames.append(tile(render(recipe, binary), label, 12))
+        playback = frames + frames[-2:0:-1]
+        filename = f"animated-{shape}.gif"
+        playback[0].save(destination / filename, save_all=True, append_images=playback[1:],
+                         duration=100, loop=0, disposal=2)
+        (destination / f"animated-{shape}.json").write_text(json.dumps(dict(frames=recipes, playback="ping-pong", milliseconds=100), indent=2) + "\n", encoding="utf-8")
+        animations.append(dict(shape=shape, image=filename, frames=len(playback), recipe=f"animated-{shape}.json"))
+    manifest = dict(examples=entries, boards=boards, animations=animations)
+    (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps(dict(examples=len(entries), boards=len(boards), animations=len(animations),
+                          destination=str(destination)), indent=2))

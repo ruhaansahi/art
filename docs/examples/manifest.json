@@ -1,0 +1,394 @@
+{
+  "examples": [
+    {
+      "id": "filled-square",
+      "label": "square",
+      "group": "shapes-filled",
+      "recipe": "filled-square.json",
+      "text": "filled-square.txt",
+      "image": "filled-square.png"
+    },
+    {
+      "id": "filled-rectangle",
+      "label": "rectangle",
+      "group": "shapes-filled",
+      "recipe": "filled-rectangle.json",
+      "text": "filled-rectangle.txt",
+      "image": "filled-rectangle.png"
+    },
+    {
+      "id": "filled-triangle",
+      "label": "triangle",
+      "group": "shapes-filled",
+      "recipe": "filled-triangle.json",
+      "text": "filled-triangle.txt",
+      "image": "filled-triangle.png"
+    },
+    {
+      "id": "filled-inverted-triangle",
+      "label": "inverted triangle",
+      "group": "shapes-filled",
+      "recipe": "filled-inverted-triangle.json",
+      "text": "filled-inverted-triangle.txt",
+      "image": "filled-inverted-triangle.png"
+    },
+    {
+      "id": "filled-diamond",
+      "label": "diamond",
+      "group": "shapes-filled",
+      "recipe": "filled-diamond.json",
+      "text": "filled-diamond.txt",
+      "image": "filled-diamond.png"
+    },
+    {
+      "id": "filled-circle",
+      "label": "circle",
+      "group": "shapes-filled",
+      "recipe": "filled-circle.json",
+      "text": "filled-circle.txt",
+      "image": "filled-circle.png"
+    },
+    {
+      "id": "filled-heart",
+      "label": "heart",
+      "group": "shapes-filled",
+      "recipe": "filled-heart.json",
+      "text": "filled-heart.txt",
+      "image": "filled-heart.png"
+    },
+    {
+      "id": "filled-star",
+      "label": "star",
+      "group": "shapes-filled",
+      "recipe": "filled-star.json",
+      "text": "filled-star.txt",
+      "image": "filled-star.png"
+    },
+    {
+      "id": "filled-arrow",
+      "label": "arrow",
+      "group": "shapes-filled",
+      "recipe": "filled-arrow.json",
+      "text": "filled-arrow.txt",
+      "image": "filled-arrow.png"
+    },
+    {
+      "id": "filled-cross",
+      "label": "cross",
+      "group": "shapes-filled",
+      "recipe": "filled-cross.json",
+      "text": "filled-cross.txt",
+      "image": "filled-cross.png"
+    },
+    {
+      "id": "filled-hourglass",
+      "label": "hourglass",
+      "group": "shapes-filled",
+      "recipe": "filled-hourglass.json",
+      "text": "filled-hourglass.txt",
+      "image": "filled-hourglass.png"
+    },
+    {
+      "id": "filled-hexagon",
+      "label": "hexagon",
+      "group": "shapes-filled",
+      "recipe": "filled-hexagon.json",
+      "text": "filled-hexagon.txt",
+      "image": "filled-hexagon.png"
+    },
+    {
+      "id": "outline-square",
+      "label": "square",
+      "group": "shapes-outline",
+      "recipe": "outline-square.json",
+      "text": "outline-square.txt",
+      "image": "outline-square.png"
+    },
+    {
+      "id": "outline-rectangle",
+      "label": "rectangle",
+      "group": "shapes-outline",
+      "recipe": "outline-rectangle.json",
+      "text": "outline-rectangle.txt",
+      "image": "outline-rectangle.png"
+    },
+    {
+      "id": "outline-triangle",
+      "label": "triangle",
+      "group": "shapes-outline",
+      "recipe": "outline-triangle.json",
+      "text": "outline-triangle.txt",
+      "image": "outline-triangle.png"
+    },
+    {
+      "id": "outline-inverted-triangle",
+      "label": "inverted triangle",
+      "group": "shapes-outline",
+      "recipe": "outline-inverted-triangle.json",
+      "text": "outline-inverted-triangle.txt",
+      "image": "outline-inverted-triangle.png"
+    },
+    {
+      "id": "outline-diamond",
+      "label": "diamond",
+      "group": "shapes-outline",
+      "recipe": "outline-diamond.json",
+      "text": "outline-diamond.txt",
+      "image": "outline-diamond.png"
+    },
+    {
+      "id": "outline-circle",
+      "label": "circle",
+      "group": "shapes-outline",
+      "recipe": "outline-circle.json",
+      "text": "outline-circle.txt",
+      "image": "outline-circle.png"
+    },
+    {
+      "id": "outline-heart",
+      "label": "heart",
+      "group": "shapes-outline",
+      "recipe": "outline-heart.json",
+      "text": "outline-heart.txt",
+      "image": "outline-heart.png"
+    },
+    {
+      "id": "outline-star",
+      "label": "star",
+      "group": "shapes-outline",
+      "recipe": "outline-star.json",
+      "text": "outline-star.txt",
+      "image": "outline-star.png"
+    },
+    {
+      "id": "outline-arrow",
+      "label": "arrow",
+      "group": "shapes-outline",
+      "recipe": "outline-arrow.json",
+      "text": "outline-arrow.txt",
+      "image": "outline-arrow.png"
+    },
+    {
+      "id": "outline-cross",
+      "label": "cross",
+      "group": "shapes-outline",
+      "recipe": "outline-cross.json",
+      "text": "outline-cross.txt",
+      "image": "outline-cross.png"
+    },
+    {
+      "id": "outline-hourglass",
+      "label": "hourglass",
+      "group": "shapes-outline",
+      "recipe": "outline-hourglass.json",
+      "text": "outline-hourglass.txt",
+      "image": "outline-hourglass.png"
+    },
+    {
+      "id": "outline-hexagon",
+      "label": "hexagon",
+      "group": "shapes-outline",
+      "recipe": "outline-hexagon.json",
+      "text": "outline-hexagon.txt",
+      "image": "outline-hexagon.png"
+    },
+    {
+      "id": "math-circle",
+      "label": "Circle canvas",
+      "group": "math-modes",
+      "recipe": "math-circle.json",
+      "text": "math-circle.txt",
+      "image": "math-circle.png"
+    },
+    {
+      "id": "math-star",
+      "label": "Star canvas",
+      "group": "math-modes",
+      "recipe": "math-star.json",
+      "text": "math-star.txt",
+      "image": "math-star.png"
+    },
+    {
+      "id": "math-metaball",
+      "label": "SDF metaballs",
+      "group": "math-modes",
+      "recipe": "math-metaball.json",
+      "text": "math-metaball.txt",
+      "image": "math-metaball.png"
+    },
+    {
+      "id": "math-donut",
+      "label": "Ray-marched 3D torus",
+      "group": "math-modes",
+      "recipe": "math-donut.json",
+      "text": "math-donut.txt",
+      "image": "math-donut.png"
+    },
+    {
+      "id": "math-fractal",
+      "label": "Mandelbrot fractal",
+      "group": "math-modes",
+      "recipe": "math-fractal.json",
+      "text": "math-fractal.txt",
+      "image": "math-fractal.png"
+    },
+    {
+      "id": "math-wave",
+      "label": "Perlin flow field",
+      "group": "math-modes",
+      "recipe": "math-wave.json",
+      "text": "math-wave.txt",
+      "image": "math-wave.png"
+    },
+    {
+      "id": "math-moire",
+      "label": "Moire interference",
+      "group": "math-modes",
+      "recipe": "math-moire.json",
+      "text": "math-moire.txt",
+      "image": "math-moire.png"
+    },
+    {
+      "id": "math-julia",
+      "label": "Julia fractal",
+      "group": "math-modes",
+      "recipe": "math-julia.json",
+      "text": "math-julia.txt",
+      "image": "math-julia.png"
+    },
+    {
+      "id": "math-clifford",
+      "label": "Clifford attractor",
+      "group": "math-modes",
+      "recipe": "math-clifford.json",
+      "text": "math-clifford.txt",
+      "image": "math-clifford.png"
+    },
+    {
+      "id": "layout-grid",
+      "label": "grid",
+      "group": "arrangements",
+      "recipe": "layout-grid.json",
+      "text": "layout-grid.txt",
+      "image": "layout-grid.png"
+    },
+    {
+      "id": "layout-radial",
+      "label": "radial",
+      "group": "arrangements",
+      "recipe": "layout-radial.json",
+      "text": "layout-radial.txt",
+      "image": "layout-radial.png"
+    },
+    {
+      "id": "layout-sine-wave",
+      "label": "sine-wave",
+      "group": "arrangements",
+      "recipe": "layout-sine-wave.json",
+      "text": "layout-sine-wave.txt",
+      "image": "layout-sine-wave.png"
+    },
+    {
+      "id": "layout-vortex",
+      "label": "vortex",
+      "group": "arrangements",
+      "recipe": "layout-vortex.json",
+      "text": "layout-vortex.txt",
+      "image": "layout-vortex.png"
+    },
+    {
+      "id": "layout-chaos",
+      "label": "chaos",
+      "group": "arrangements",
+      "recipe": "layout-chaos.json",
+      "text": "layout-chaos.txt",
+      "image": "layout-chaos.png"
+    },
+    {
+      "id": "shading-solid",
+      "label": "solid",
+      "group": "shading",
+      "recipe": "shading-solid.json",
+      "text": "shading-solid.txt",
+      "image": "shading-solid.png"
+    },
+    {
+      "id": "shading-binary",
+      "label": "binary",
+      "group": "shading",
+      "recipe": "shading-binary.json",
+      "text": "shading-binary.txt",
+      "image": "shading-binary.png"
+    },
+    {
+      "id": "shading-gradient-linear",
+      "label": "gradient-linear",
+      "group": "shading",
+      "recipe": "shading-gradient-linear.json",
+      "text": "shading-gradient-linear.txt",
+      "image": "shading-gradient-linear.png"
+    },
+    {
+      "id": "shading-gradient-radial",
+      "label": "gradient-radial",
+      "group": "shading",
+      "recipe": "shading-gradient-radial.json",
+      "text": "shading-gradient-radial.txt",
+      "image": "shading-gradient-radial.png"
+    },
+    {
+      "id": "shading-custom-ramp",
+      "label": "Custom ramp: \" .oO@\"",
+      "group": "shading",
+      "recipe": "shading-custom-ramp.json",
+      "text": "shading-custom-ramp.txt",
+      "image": "shading-custom-ramp.png"
+    },
+    {
+      "id": "transform-original",
+      "label": "Original star",
+      "group": "transforms",
+      "recipe": "transform-original.json",
+      "text": "transform-original.txt",
+      "image": "transform-original.png"
+    },
+    {
+      "id": "transform-transformed",
+      "label": "Scale + rotation + skew",
+      "group": "transforms",
+      "recipe": "transform-transformed.json",
+      "text": "transform-transformed.txt",
+      "image": "transform-transformed.png"
+    },
+    {
+      "id": "mixed-grid",
+      "label": "4x5 grid: hearts, stars, circles",
+      "group": "mixed-grid",
+      "recipe": "mixed-grid.json",
+      "text": "mixed-grid.txt",
+      "image": "mixed-grid.png"
+    }
+  ],
+  "boards": [
+    "shapes-filled.png",
+    "shapes-outline.png",
+    "math-modes.png",
+    "arrangements.png",
+    "shading.png",
+    "transforms.png"
+  ],
+  "animations": [
+    {
+      "shape": "donut",
+      "image": "animated-donut.gif",
+      "frames": 30,
+      "recipe": "animated-donut.json"
+    },
+    {
+      "shape": "metaball",
+      "image": "animated-metaball.gif",
+      "frames": 30,
+      "recipe": "animated-metaball.json"
+    }
+  ]
+}

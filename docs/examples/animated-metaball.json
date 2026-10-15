@@ -1,0 +1,310 @@
+{
+  "frames": [
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.0,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.18,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.36,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.54,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.72,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 0.8999999999999999,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.08,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.26,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.44,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.6199999999999999,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.7999999999999998,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 1.98,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 2.16,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 2.34,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 2.52,
+      "ramp": " .:-=+*#%@"
+    },
+    {
+      "engine": "math",
+      "shape": "metaball",
+      "matrix": "grid",
+      "shading": "gradient-linear",
+      "resolution": [
+        64,
+        32
+      ],
+      "transform": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "seed": 20261022,
+      "time": 2.6999999999999997,
+      "ramp": " .:-=+*#%@"
+    }
+  ],
+  "playback": "ping-pong",
+  "milliseconds": 100
+}
