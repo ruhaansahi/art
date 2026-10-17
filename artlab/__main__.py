@@ -203,11 +203,37 @@ def math_study(seed, ordinal):
                        seed=rng.randrange(2147483648), moment=round(rng.uniform(0, 12), 3))
 
 
+def interactive():
+    print("Available shapes: " + ", ".join(SHAPES))
+    sequence = selection(input("Shapes in order, with quantities [heart:2,star:2]: ") or "heart:2,star:2")
+    print("Expanded order: " + ",".join(sequence))
+    reordered = input("Optional replacement sequence (comma-separated); Enter keeps this order: ")
+    if reordered.strip():
+        replacement = selection(reordered)
+        if sorted(replacement) != sorted(sequence):
+            raise ValueError("Replacement order must preserve the selected shapes and quantities")
+        sequence = replacement
+    rows, cols = grid(input("Grid ROWSxCOLS [2x2]: ") or "2x2")
+    size = int(input("Pixel size 5..81 [21]: ") or "21")
+    style = input("Style filled/outline [filled]: ") or "filled"
+    seed = int(input("Seed [20261022]: ") or "20261022")
+    if (input("Shuffle? y/N: ") or "n").lower() == "y":
+        random.Random(seed).shuffle(sequence)
+    recipe = validate(dict(rows=rows, cols=cols, size=size, style=style, sequence=sequence, seed=seed))
+    print(render(recipe), end="")
+    output = input("Save artwork to path (Enter skips): ").strip()
+    if output:
+        path = Path(output)
+        path.write_text(render(recipe), encoding="utf-8")
+        path.with_suffix(".json").write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
+
+
 def main():
     parser = argparse.ArgumentParser(description="C++ asterisk art with Python recipes")
     commands = parser.add_subparsers(dest="command")
     commands.add_parser("shapes")
     commands.add_parser("build")
+    commands.add_parser("interactive")
     for command in ("render", "math"):
         drawing = commands.add_parser(command)
         sources = drawing.add_mutually_exclusive_group()
@@ -237,7 +263,9 @@ def main():
             print("\n".join(SHAPES))
         elif args.command == "build":
             print(build())
-        elif args.command in (None, "interactive"):
+        elif args.command == "interactive":
+            interactive()
+        elif args.command is None:
             parser.print_help()
         else:
             if args.recipe:
