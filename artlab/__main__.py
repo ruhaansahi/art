@@ -204,6 +204,20 @@ def math_study(seed, ordinal):
 
 
 def interactive():
+    if (input("Mode shapes/math [shapes]: ") or "shapes") == "math":
+        print("Math shapes: " + ", ".join(MATH_SHAPES))
+        shape = input("Shape [moire]: ") or "moire"
+        matrix = input("Matrix grid/radial/sine-wave/vortex/chaos [grid]: ") or "grid"
+        shading = input("Shading solid/binary/gradient-linear/gradient-radial [solid]: ") or "solid"
+        resolution = list(map(int, (input("Resolution WIDTH HEIGHT [120 40]: ") or "120 40").split()))
+        transform = list(map(float, (input("Transform SCALE ANGLE SKEW_X SKEW_Y [1 0 0 0]: ") or "1 0 0 0").split()))
+        recipe = math_recipe(shape, matrix, shading, resolution, transform)
+        print(render(recipe), end="")
+        output = input("Save artwork to path (Enter skips): ").strip()
+        if output:
+            Path(output).write_text(render(recipe), encoding="utf-8")
+            Path(output).with_suffix(".json").write_text(json.dumps(recipe, indent=2) + "\n", encoding="utf-8")
+        return
     print("Available shapes: " + ", ".join(SHAPES))
     sequence = selection(input("Shapes in order, with quantities [heart:2,star:2]: ") or "heart:2,star:2")
     print("Expanded order: " + ",".join(sequence))
