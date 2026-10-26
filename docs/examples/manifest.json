@@ -193,20 +193,12 @@
       "image": "outline-hexagon.png"
     },
     {
-      "id": "math-circle",
-      "label": "Circle canvas",
+      "id": "math-donut",
+      "label": "Ray-marched 3D torus",
       "group": "math-modes",
-      "recipe": "math-circle.json",
-      "text": "math-circle.txt",
-      "image": "math-circle.png"
-    },
-    {
-      "id": "math-star",
-      "label": "Star canvas",
-      "group": "math-modes",
-      "recipe": "math-star.json",
-      "text": "math-star.txt",
-      "image": "math-star.png"
+      "recipe": "math-donut.json",
+      "text": "math-donut.txt",
+      "image": "math-donut.png"
     },
     {
       "id": "math-metaball",
@@ -217,20 +209,28 @@
       "image": "math-metaball.png"
     },
     {
-      "id": "math-donut",
-      "label": "Ray-marched 3D torus",
-      "group": "math-modes",
-      "recipe": "math-donut.json",
-      "text": "math-donut.txt",
-      "image": "math-donut.png"
-    },
-    {
       "id": "math-fractal",
       "label": "Mandelbrot fractal",
       "group": "math-modes",
       "recipe": "math-fractal.json",
       "text": "math-fractal.txt",
       "image": "math-fractal.png"
+    },
+    {
+      "id": "math-julia",
+      "label": "Julia fractal",
+      "group": "math-modes",
+      "recipe": "math-julia.json",
+      "text": "math-julia.txt",
+      "image": "math-julia.png"
+    },
+    {
+      "id": "math-clifford",
+      "label": "Clifford attractor",
+      "group": "math-modes",
+      "recipe": "math-clifford.json",
+      "text": "math-clifford.txt",
+      "image": "math-clifford.png"
     },
     {
       "id": "math-wave",
@@ -249,20 +249,20 @@
       "image": "math-moire.png"
     },
     {
-      "id": "math-julia",
-      "label": "Julia fractal",
+      "id": "math-star",
+      "label": "Star canvas",
       "group": "math-modes",
-      "recipe": "math-julia.json",
-      "text": "math-julia.txt",
-      "image": "math-julia.png"
+      "recipe": "math-star.json",
+      "text": "math-star.txt",
+      "image": "math-star.png"
     },
     {
-      "id": "math-clifford",
-      "label": "Clifford attractor",
+      "id": "math-circle",
+      "label": "Circle canvas",
       "group": "math-modes",
-      "recipe": "math-clifford.json",
-      "text": "math-clifford.txt",
-      "image": "math-clifford.png"
+      "recipe": "math-circle.json",
+      "text": "math-circle.txt",
+      "image": "math-circle.png"
     },
     {
       "id": "layout-grid",

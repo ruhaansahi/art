@@ -72,7 +72,7 @@ def generate(destination):
     labels = {"circle": "Circle canvas", "star": "Star canvas", "metaball": "SDF metaballs",
               "donut": "Ray-marched 3D torus", "fractal": "Mandelbrot fractal", "wave": "Perlin flow field",
               "moire": "Moire interference", "julia": "Julia fractal", "clifford": "Clifford attractor"}
-    for shape in MATH_SHAPES:
+    for shape in ("donut", "metaball", "fractal", "julia", "clifford", "wave", "moire", "star", "circle"):
         shading = "binary" if shape == "moire" else "solid" if shape in ("star", "wave") else "gradient-linear"
         save(f"math-{shape}", labels[shape], "math-modes",
              math_recipe(shape=shape, shading=shading, resolution=(64, 32), seed=42, moment=1.2))
@@ -116,3 +116,13 @@ def generate(destination):
     (destination / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(dict(examples=len(entries), boards=len(boards), animations=len(animations),
                           destination=str(destination)), indent=2))
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, default=ROOT / "docs/examples")
+    args = parser.parse_args()
+    try:
+        generate(args.output_dir)
+    except ImportError as error:
+        parser.exit(2, f"Install Pillow to regenerate documentation images: {error}\n")
